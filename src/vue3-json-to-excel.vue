@@ -1,6 +1,6 @@
 <script>
 import { defineComponent } from "vue";
-import XLSX from "xlsx";
+import * as XLSX from "xlsx";
 
 export default /*#__PURE__*/ defineComponent({
   name: "Vue3JsonToExcel",
