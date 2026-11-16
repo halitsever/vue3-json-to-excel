@@ -1,4 +1,4 @@
-// rollup.config.js
+// rollup.config.mjs
 import fs from 'fs';
 import path from 'path';
 import vue from 'rollup-plugin-vue';
@@ -8,8 +8,11 @@ import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import babel from '@rollup/plugin-babel';
 import PostCSS from 'rollup-plugin-postcss';
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import minimist from 'minimist';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 // Get browserslist config and remove ie from es build targets
 const esbrowserslist = fs.readFileSync('./.browserslistrc')
@@ -23,7 +26,7 @@ const babelPresetEnvConfig = require('../babel.config')
 
 const argv = minimist(process.argv.slice(2));
 
-const projectRoot = path.resolve(__dirname, '..');
+const projectRoot = path.resolve(import.meta.dirname, '..');
 
 const baseConfig = {
   input: 'src/entry.js',
@@ -39,6 +42,7 @@ const baseConfig = {
       }),
     ],
     replace: {
+      preventAssignment: true,
       'process.env.NODE_ENV': JSON.stringify('production'),
     },
     vue: {
