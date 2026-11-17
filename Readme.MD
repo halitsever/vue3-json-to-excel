@@ -74,7 +74,7 @@ export default defineComponent({
 ```
 
 <p align="center">
-<a href="https://github.com/halitsever/repo_name/issues"><img src="https://halitsever-api.vercel.app/api/issue"/></a>
+<a href="https://github.com/halitsever/vue3-json-to-excel/issues"><img src="https://halitsever-api.vercel.app/api/issue"/></a>
 </p>
 
 <p align="center">
