@@ -1,7 +1,7 @@
 {
   "name": "vue3-json-to-excel",
   "version": "1.0.1",
-  "description": "Component that lets you convert your Json objects into excel tables",
+  "description": "Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the browser, built on SheetJS.",
   "main": "dist/vue3-json-to-excel.ssr.js",
   "browser": "dist/vue3-json-to-excel.esm.js",
   "module": "dist/vue3-json-to-excel.esm.js",
@@ -10,13 +10,25 @@
     "url": "https://github.com/halitsever/vue3-json-to-excel/issues"
   },
   "homepage": "https://github.com/halitsever/vue3-json-to-excel",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halitsever/vue3-json-to-excel.git"
+  },
   "keywords": [
     "vue",
-    "json to excel",
+    "vue3",
+    "vue-component",
     "json",
     "excel",
-    "vue3"
+    "xlsx",
+    "json-to-excel",
+    "json-to-xlsx",
+    "export-excel",
+    "excel-export",
+    "spreadsheet",
+    "sheetjs"
   ],
+  "author": "Halit Sever",
   "license": "MIT",
   "files": [
     "dist/*",
