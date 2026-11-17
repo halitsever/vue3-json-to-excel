@@ -13,7 +13,6 @@ vue3-json-to-excel is a small npm package: one Vue 3 component that Vue apps use
 - `xlsx` is installed from a tarball on cdn.sheetjs.com, not from the npm registry. `npm ci` needs access to that host, and Dependabot does not update it, so bump the URL by hand.
 - npm has 1.0.5, but package.json says 1.0.1. There is no publish workflow: the owner publishes by hand, so leave `version` alone.
 - The package ships `dist/*` and `src/**/*.vue`. `dist/` is ignored by git.
-- The README full example imports `@/vue3-json-to-excel.vue` through the dev alias. Package users import from `vue3-json-to-excel`.
 - `src/LICENSE` (2021) and the root `LICENSE` (2022) differ.
 
 ## Conventions

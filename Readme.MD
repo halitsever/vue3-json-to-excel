@@ -56,7 +56,7 @@ Full example:
 ```vue
 <script>
 import { defineComponent } from 'vue';
-import Vue3JsonToExcel from '@/vue3-json-to-excel.vue';
+import Vue3JsonToExcel from 'vue3-json-to-excel';
 
 export default defineComponent({
   name: 'ServeDev',
