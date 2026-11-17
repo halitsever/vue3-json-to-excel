@@ -14,6 +14,10 @@ updates:
       npm-major:
         patterns: ["*"]
         update-types: [major]
+    ignore:
+      # Babel 8 is a migration: core and preset-env have to move together.
+      - dependency-name: "@babel/*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /
