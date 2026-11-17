@@ -1,0 +1,17 @@
+# vue3-json-to-excel
+
+> Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the browser, built on SheetJS (xlsx).
+
+Install with `npm i vue vue3-json-to-excel`. `<vue3-json-to-excel :jsonData="{ hello: 'world' }" fileName="report" buttonText="Download" />` renders a link that downloads `report.xlsx`. `jsonData` must be a single object: it becomes one row, with its keys as column headers. The default export also has an `install()` method, so `app.use()` registers it globally.
+
+## Docs
+
+- [README](https://github.com/halitsever/vue3-json-to-excel/blob/main/Readme.MD): install, usage, props and a full example
+- [Component source](https://github.com/halitsever/vue3-json-to-excel/blob/main/src/vue3-json-to-excel.vue): props, defaults and the export logic
+- [Plugin entry](https://github.com/halitsever/vue3-json-to-excel/blob/main/src/entry.esm.js): default export with install() for app.use()
+- [Dev example](https://github.com/halitsever/vue3-json-to-excel/blob/main/dev/serve.vue): the local playground that `npm run serve` starts
+
+## Optional
+
+- [Source](https://github.com/halitsever/vue3-json-to-excel): repository
+- [npm](https://www.npmjs.com/package/vue3-json-to-excel): package page
