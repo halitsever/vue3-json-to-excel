@@ -1,7 +1,7 @@
 {
   "name": "vue3-json-to-excel",
   "version": "1.0.1",
-  "description": "Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the browser, built on SheetJS.",
+  "description": "Vue 3 component that exports JSON to an Excel (.xlsx) file in the browser, built on SheetJS. Try it in the online JSON to Excel converter.",
   "main": "dist/vue3-json-to-excel.ssr.js",
   "browser": "dist/vue3-json-to-excel.esm.js",
   "module": "dist/vue3-json-to-excel.esm.js",
@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/halitsever/vue3-json-to-excel/issues"
   },
-  "homepage": "https://github.com/halitsever/vue3-json-to-excel",
+  "homepage": "https://halitsever.github.io/vue3-json-to-excel/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/halitsever/vue3-json-to-excel.git"
@@ -23,6 +23,9 @@
     "xlsx",
     "json-to-excel",
     "json-to-xlsx",
+    "json-to-excel-converter",
+    "vue-excel",
+    "vue-export-excel",
     "export-excel",
     "excel-export",
     "spreadsheet",
@@ -37,11 +40,13 @@
   "sideEffects": false,
   "scripts": {
     "serve": "vite",
+    "serve:site": "vite --config vite.site.config.mjs",
     "prebuild": "rimraf ./dist",
     "build": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs",
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format es",
-    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format iife"
+    "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.mjs --format iife",
+    "build:site": "vite build --config vite.site.config.mjs"
   },
   "dependencies": {
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
