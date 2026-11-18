@@ -4,7 +4,8 @@
 <img src="https://halitsever-api.vercel.app/api/repo-title?title=Vue3%20JSON%20to%20Excel">
 
 <p align="center">
-Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the browser, built on SheetJS.<br>
+Vue 3 component that exports JSON to an Excel (.xlsx) file in the browser, built on SheetJS.<br>
+Try it in the <a href="https://halitsever.github.io/vue3-json-to-excel/">online JSON to Excel converter</a>.<br>
 <br/>
 <br/>
 <a href="https://www.npmjs.com/package/vue3-json-to-excel"><img src="https://img.shields.io/npm/v/vue3-json-to-excel" alt="npm version"/></a>
@@ -13,7 +14,7 @@ Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the brows
 <img src="https://img.shields.io/github/sponsors/halitsever" alt="GitHub sponsors"/>
 </p>
 <p align="center">
-<a align="center" href="https://www.npmjs.com/package/vue3-json-to-excel">Documentation</a>
+<a align="center" href="https://halitsever.github.io/vue3-json-to-excel/">Documentation</a>
   </p>
 </p>
 
@@ -21,7 +22,8 @@ Vue 3 component that exports a JSON object to an Excel (.xlsx) file in the brows
 <img src="https://halitsever-api.vercel.app/api/details"/>
 </p>
 
-- **JSON to Excel** - Pass a JSON object and get a link that downloads it as an `.xlsx` sheet, with the keys as column headers
+- **JSON to Excel** - Pass an object or an array of objects and get a link that downloads it as an `.xlsx` sheet, with the keys as column headers
+- **Nested data** - Nested objects become dotted columns such as `shipping.city`, and arrays inside an object go into one cell as JSON text
 - **File name** - Set it with `fileName`, or keep the default `output.xlsx`
 - **Link text** - Set it with `buttonText`, or keep the default `Download`
 - **Runs in the browser** - The workbook is built with [SheetJS](https://sheetjs.com) on the client, no server needed
@@ -45,11 +47,11 @@ Usage:
 
 Props:
 
-| Name       | Type   | Required | Default                                  |
-| ---------- | ------ | -------- | ---------------------------------------- |
-| jsonData   | Object | yes      |                                          |
-| fileName   | String | no       | `output` (`.xlsx` is added to the name)  |
-| buttonText | String | no       | `Download`                               |
+| Name       | Type            | Required | Default                                  |
+| ---------- | --------------- | -------- | ---------------------------------------- |
+| jsonData   | Object or Array | yes      |                                          |
+| fileName   | String          | no       | `output` (`.xlsx` is added to the name)  |
+| buttonText | String          | no       | `Download`                               |
 
 Full example:
 
