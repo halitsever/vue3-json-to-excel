@@ -1,0 +1,7 @@
+{
+  "theme": "dark",
+  "language": "en",
+  "pageSize": 25,
+  "notifications": { "email": true, "push": false },
+  "beta": null
+}

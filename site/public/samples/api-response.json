@@ -1,0 +1,10 @@
+{
+  "page": 1,
+  "per_page": 3,
+  "total": 3,
+  "data": [
+    { "id": "p-01", "title": "Desk lamp", "price": 34.5, "stock": 12, "tags": ["lighting", "office"] },
+    { "id": "p-02", "title": "Monitor arm", "price": 79, "stock": 0, "tags": ["office"] },
+    { "id": "p-03", "title": "USB-C hub", "price": 45.99, "stock": 31, "tags": [] }
+  ]
+}

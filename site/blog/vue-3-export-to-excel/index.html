@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vue 3 Export to Excel: Download JSON as .xlsx</title>
+    <meta name="description" content="Add an Export to Excel button to a Vue 3 app with the vue3-json-to-excel component: install, props, reactive data, file names and a SheetJS version." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/vue-3-export-to-excel/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Vue 3 export to Excel: download JSON as an .xlsx file" />
+    <meta property="og:description" content="Add an Export to Excel button to a Vue 3 app with the vue3-json-to-excel component: install, props, reactive data, file names and a SheetJS version." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/vue-3-export-to-excel/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Vue 3 export to Excel: download JSON as an .xlsx file",
+      "description": "Add an Export to Excel button to a Vue 3 app with the vue3-json-to-excel component: install, props, reactive data, file names and a SheetJS version.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/vue-3-export-to-excel/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/vue-3-export-to-excel/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "vue 3 export to excel",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Vue 3 export to Excel: download JSON as an .xlsx file",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/vue-3-export-to-excel/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>Vue 3 export to Excel: download JSON as an .xlsx file</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">vue3-json-to-excel is a small Vue 3 component that renders a link and downloads your data as an .xlsx file when it is clicked. The workbook is built in the browser with SheetJS, so there is no server endpoint to write.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>Install and register</h2>
+          <pre><code>npm i vue vue3-json-to-excel</code></pre>
+          <p>Import it in the component that needs the button:</p>
+          <pre><code>&lt;script setup&gt;
+import Vue3JsonToExcel from &#x27;vue3-json-to-excel&#x27;;
+
+const rows = [
+  { id: 1, name: &#x27;Ada&#x27;, city: &#x27;London&#x27; },
+  { id: 2, name: &#x27;Grace&#x27;, city: &#x27;New York&#x27; },
+];
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;vue3-json-to-excel :json-data=&quot;rows&quot; file-name=&quot;people&quot; button-text=&quot;Export to Excel&quot; /&gt;
+&lt;/template&gt;</code></pre>
+          <p>Or register it once for the whole app, since the default export has an <code>install()</code> method:</p>
+          <pre><code>import { createApp } from &#x27;vue&#x27;;
+import Vue3JsonToExcel from &#x27;vue3-json-to-excel&#x27;;
+import App from &#x27;./App.vue&#x27;;
+
+createApp(App).use(Vue3JsonToExcel).mount(&#x27;#app&#x27;);</code></pre>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Props</h2>
+          <ul>
+            <li><code>jsonData</code> (required): one object, which gives one row, or an array of objects, one row each.</li>
+            <li><code>fileName</code>: the name without extension. The default is <code>output</code>, and <code>.xlsx</code> is added.</li>
+            <li><code>buttonText</code>: the link text. The default is <code>Download</code>.</li>
+          </ul>
+          <p>
+            The component renders a single <code>&lt;a&gt;</code> element, so a <code>class</code> you put on it lands on
+            the link. That is how you make it look like the buttons in your design system.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Export what the user sees</h2>
+          <p>
+            <code>jsonData</code> is read when the link is clicked, so pass a computed value and the file always matches
+            the current filter or sort:
+          </p>
+          <pre><code>&lt;script setup&gt;
+import { computed, ref } from &#x27;vue&#x27;;
+import Vue3JsonToExcel from &#x27;vue3-json-to-excel&#x27;;
+
+const props = defineProps({ orders: Array });
+const onlyPaid = ref(false);
+const visible = computed(() =&gt; (onlyPaid.value ? props.orders.filter((o) =&gt; o.paid) : props.orders));
+const fileName = computed(() =&gt; `orders-${new Date().toISOString().slice(0, 10)}`);
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;label&gt;&lt;input v-model=&quot;onlyPaid&quot; type=&quot;checkbox&quot; /&gt; Paid only&lt;/label&gt;
+  &lt;vue3-json-to-excel class=&quot;btn&quot; :json-data=&quot;visible&quot; :file-name=&quot;fileName&quot; button-text=&quot;Export to Excel&quot; /&gt;
+&lt;/template&gt;</code></pre>
+          <p>
+            Map the rows before passing them if the export needs different headers than your API fields, for example
+            <code>visible.map((o) =&gt; ({ Order: o.id, Customer: o.customer }))</code>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Nested data and versions</h2>
+          <p>
+            The current source flattens nested objects into dotted columns such as <code>shipping.city</code> and writes
+            arrays to one cell as JSON text. That needs a release newer than 1.0.5: version 1.0.5 on npm writes one flat
+            object as a single row. Until a newer release is published, flatten the rows yourself or use the code below.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Without the component</h2>
+          <p>
+            The component is a thin wrapper. If you need more control, such as several sheets or column widths, call
+            SheetJS from a method:
+          </p>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+
+function exportOrders(rows) {
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, XLSX.utils.json_to_sheet(rows), &#x27;Orders&#x27;);
+  XLSX.writeFile(workbook, &#x27;orders.xlsx&#x27;);
+}</code></pre>
+          <p>
+            <a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript</a> covers column
+            order, widths and dates. To try the component without writing code, the
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a> on this site is built on it.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+          <li><a href="/vue3-json-to-excel/blog/excel-to-json-javascript/">Convert Excel to JSON in JavaScript</a></li>
+          <li><a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript with SheetJS</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

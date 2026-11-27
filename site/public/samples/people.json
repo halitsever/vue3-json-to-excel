@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Ada Lovelace", "email": "ada@example.com", "country": "GB", "active": true, "joined": "2026-01-15" },
+  { "id": 2, "name": "Grace Hopper", "email": "grace@example.com", "country": "US", "active": true, "joined": "2026-02-03" },
+  { "id": 3, "name": "Alan Turing", "email": "alan@example.com", "country": "GB", "active": false, "joined": "2026-03-21" },
+  { "id": 4, "name": "Katherine Johnson", "email": "katherine@example.com", "country": "US", "active": true, "joined": "2026-04-09" },
+  { "id": 5, "name": "Cahit Arf", "email": "cahit@example.com", "country": "TR", "active": true, "joined": "2026-05-30" }
+]

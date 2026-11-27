@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Convert Excel to JSON in JavaScript with SheetJS</title>
+    <meta name="description" content="Read an .xlsx file in the browser or Node.js and turn a sheet into JSON with SheetJS sheet_to_json: headers, empty cells, dates and every option tested." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/excel-to-json-javascript/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Convert Excel to JSON in JavaScript" />
+    <meta property="og:description" content="Read an .xlsx file in the browser or Node.js and turn a sheet into JSON with SheetJS sheet_to_json: headers, empty cells, dates and every option tested." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/excel-to-json-javascript/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Convert Excel to JSON in JavaScript",
+      "description": "Read an .xlsx file in the browser or Node.js and turn a sheet into JSON with SheetJS sheet_to_json: headers, empty cells, dates and every option tested.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/excel-to-json-javascript/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/excel-to-json-javascript/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "convert excel to json javascript",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Convert Excel to JSON in JavaScript",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/excel-to-json-javascript/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>Convert Excel to JSON in JavaScript</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">SheetJS reads .xlsx, .xls, .ods and .csv files in plain JavaScript, and one function turns a sheet into an array of objects. This is the code behind the Excel to JSON converter on this site, with the options that matter.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>Install SheetJS</h2>
+          <p>
+            SheetJS publishes current versions on its own CDN. The <code>xlsx</code> package on the npm registry stopped at
+            0.18.5, so install the tarball:
+          </p>
+          <pre><code>npm i https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz</code></pre>
+        </section>
+
+        <section class="wrap prose">
+          <h2>In the browser</h2>
+          <p>Read the file from an <code>&lt;input type="file"&gt;</code> as an ArrayBuffer and parse it:</p>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+
+input.addEventListener(&#x27;change&#x27;, async () =&gt; {
+  const file = input.files[0];
+  const workbook = XLSX.read(await file.arrayBuffer(), { cellDates: true });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(sheet, { UTC: true });
+  console.log(rows);
+});</code></pre>
+          <p>
+            Nothing leaves the browser. <code>workbook.SheetNames</code> lists every sheet in order, so you can offer a
+            picker the way the <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> does.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>In Node.js</h2>
+          <p>
+            The ES module build does not load <code>fs</code> on its own. Hand it over with <code>set_fs</code> before
+            calling <code>readFile</code>, or read the bytes yourself and use <code>read</code>:
+          </p>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+import fs from &#x27;fs&#x27;;
+
+XLSX.set_fs(fs);
+const workbook = XLSX.readFile(&#x27;people.xlsx&#x27;, { cellDates: true });
+const rows = XLSX.utils.sheet_to_json(workbook.Sheets.People, { UTC: true });
+fs.writeFileSync(&#x27;people.json&#x27;, JSON.stringify(rows, null, 2));</code></pre>
+        </section>
+
+        <section class="wrap prose">
+          <h2>What sheet_to_json returns</h2>
+          <p>For a sheet with the header row <code>name | id | city | joined</code> and two rows, where Grace has no join date:</p>
+          <pre><code>[
+  { &quot;name&quot;: &quot;Ada&quot;, &quot;id&quot;: 1, &quot;city&quot;: &quot;London&quot;, &quot;joined&quot;: &quot;2026-01-15T00:00:00.000Z&quot; },
+  { &quot;name&quot;: &quot;Grace&quot;, &quot;id&quot;: 2, &quot;city&quot;: &quot;New York&quot; }
+]</code></pre>
+          <ul>
+            <li>The first row gives the keys. Numbers and booleans keep their type.</li>
+            <li>Empty cells are left out, so Grace's object has no <code>joined</code> key.</li>
+            <li>Repeated headers get a suffix: two columns named <code>name</code> become <code>name</code> and <code>name_1</code>.</li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Options worth knowing</h2>
+          <ul>
+            <li><code>{ defval: null }</code> writes empty cells as <code>null</code>, so every object has every key.</li>
+            <li><code>{ header: 1 }</code> returns arrays instead of objects, header row included, which is handy for tables without a header.</li>
+            <li><code>{ header: 'A' }</code> uses the column letters as keys.</li>
+            <li><code>{ raw: false }</code> returns the text Excel displays, so <code>1</code> becomes <code>"1"</code> and a date becomes <code>"1/15/26"</code>.</li>
+            <li><code>{ range: 1 }</code> skips the first row and uses the second row as the header.</li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Dates</h2>
+          <p>
+            Excel stores dates as serial numbers. Without options you get <code>46037</code> instead of 15 January 2026.
+            <code>cellDates: true</code> in <code>read</code> turns them into <code>Date</code> objects. Add
+            <code>UTC: true</code> to <code>sheet_to_json</code> as well: without it, a date read in a time zone east of
+            UTC came out as <code>2026-01-14T21:00:00.000Z</code> in my test, one day early once you drop the time.
+          </p>
+          <p>
+            Going the other way, from JSON to a sheet, is covered in
+            <a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/sample-json-files/">Sample JSON files to download and test</a></li>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+          <li><a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript with SheetJS</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

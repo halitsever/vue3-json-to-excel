@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Convert JSON to CSV (and When Excel Is Better)</title>
+    <meta name="description" content="Convert JSON to CSV three ways: save the converted sheet from Excel, use SheetJS in JavaScript, or run jq. Plus what CSV loses compared to an .xlsx file." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/convert-json-to-csv/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to convert JSON to CSV" />
+    <meta property="og:description" content="Convert JSON to CSV three ways: save the converted sheet from Excel, use SheetJS in JavaScript, or run jq. Plus what CSV loses compared to an .xlsx file." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/convert-json-to-csv/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to convert JSON to CSV",
+      "description": "Convert JSON to CSV three ways: save the converted sheet from Excel, use SheetJS in JavaScript, or run jq. Plus what CSV loses compared to an .xlsx file.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/convert-json-to-csv/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/convert-json-to-csv/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "convert json to csv",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to convert JSON to CSV",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/convert-json-to-csv/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to convert JSON to CSV</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">CSV is the simplest table format there is, which is both its strength and its problem. Below are three ways to turn a JSON array into CSV, and the cases where an .xlsx file is the safer choice.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>CSV or Excel?</h2>
+          <p>
+            A CSV file is plain text: one line per row, values separated by commas, and quotes around values that contain a
+            comma or a quote. It has no data types, no formatting and only one table. That makes it easy for scripts and
+            databases to read, but it changes how Excel sees your data:
+          </p>
+          <ul>
+            <li>Excel guesses the type of each value when it opens a CSV. A postcode like <code>01234</code> loses its leading zero.</li>
+            <li>Long numeric IDs are shown in scientific notation, and Excel keeps only 15 significant digits.</li>
+            <li>In regions that use a comma as the decimal separator, Excel expects semicolons and may put everything in one column.</li>
+          </ul>
+          <p>
+            An .xlsx file stores types, so a string stays a string and a number stays a number. If a person will open the
+            result in Excel, the <a href="/vue3-json-to-excel/">JSON to Excel converter</a> is usually the better target.
+            If a program will read it, CSV is fine.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>1. Convert to .xlsx, then save as CSV</h2>
+          <ol>
+            <li>Paste or upload the JSON in the <a href="/vue3-json-to-excel/">converter</a> and download the .xlsx file.</li>
+            <li>Open it in Excel and choose <strong>File › Save As</strong>.</li>
+            <li>Pick <strong>CSV UTF-8 (Comma delimited) (*.csv)</strong> as the type, so non-English characters survive.</li>
+          </ol>
+          <p>
+            LibreOffice Calc does the same with <strong>File › Save As › Text CSV</strong>, where you can also choose
+            the separator. Nested objects are already flattened into dotted columns by the converter, so the CSV gets
+            them too.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>2. JavaScript with SheetJS</h2>
+          <p>
+            SheetJS can build a sheet from JSON and print it as CSV, with the quoting handled for you. Install it from the
+            SheetJS CDN, which is where current versions are published:
+          </p>
+          <pre><code>npm i https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz</code></pre>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+
+const rows = [
+  { name: &#x27;Ada, Countess&#x27;, note: &#x27;said &quot;hi&quot;&#x27; },
+  { name: &#x27;Bob&#x27; },
+];
+const csv = XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet(rows));</code></pre>
+          <p>The result, with the comma and the quotes escaped and the missing value left empty:</p>
+          <pre><code>name,note
+&quot;Ada, Countess&quot;,&quot;said &quot;&quot;hi&quot;&quot;&quot;
+Bob,</code></pre>
+          <p>
+            <code>json_to_sheet</code> leaves nested objects and arrays out of the cells, so flatten them first. The
+            <a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript guide</a> has a
+            small flatten function.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>3. The command line with jq</h2>
+          <p>
+            For a flat array of objects, <a href="https://jqlang.org">jq</a> can write CSV in one line. It takes the keys of
+            the first object as the header and prints each record in that order:
+          </p>
+          <pre><code>jq -r &#x27;(.[0] | keys_unsorted) as $k | $k, (.[] | [.[$k[]]]) | @csv&#x27; people.json</code></pre>
+          <p>For a file with two people this prints:</p>
+          <pre><code>&quot;name&quot;,&quot;city&quot;,&quot;age&quot;
+&quot;Ada&quot;,&quot;London&quot;,36
+&quot;Grace, B.&quot;,&quot;New York&quot;,85</code></pre>
+          <p>
+            Keys that appear only in later records are dropped by this command, and nested values make
+            <code>@csv</code> fail. For uneven or nested data, one of the two methods above is less work.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file/">How to open a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+          <li><a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript with SheetJS</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

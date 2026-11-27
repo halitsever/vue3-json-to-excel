@@ -8,7 +8,7 @@
       name="description"
       content="Convert Excel to JSON online: open an .xlsx, .xls, .ods or .csv file, pick a sheet and download the rows as a JSON array. Runs in your browser, no upload."
     />
-    <link rel="canonical" href="https://halitsever.github.io/vue3-json-to-excel/excel-to-json/" />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/excel-to-json/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#42b883" />
 
@@ -19,8 +19,8 @@
       property="og:description"
       content="Open an Excel file, pick a sheet and download its rows as JSON. SheetJS reads the file in your browser, nothing is uploaded."
     />
-    <meta property="og:url" content="https://halitsever.github.io/vue3-json-to-excel/excel-to-json/" />
-    <meta property="og:image" content="https://halitsever.github.io/vue3-json-to-excel/og.png" />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/excel-to-json/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
     <meta property="og:image:width" content="1280" />
     <meta property="og:image:height" content="640" />
     <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
@@ -33,7 +33,7 @@
           {
             "@type": "WebPage",
             "name": "Excel to JSON converter online",
-            "url": "https://halitsever.github.io/vue3-json-to-excel/excel-to-json/",
+            "url": "https://projects.halit.org/vue3-json-to-excel/excel-to-json/",
             "description": "Convert an Excel, ODS or CSV sheet to a JSON array in the browser. Nothing is uploaded.",
             "inLanguage": "en",
             "author": { "@type": "Person", "name": "Halit Sever", "jobTitle": "Developer", "url": "https://halit.org" }
@@ -100,6 +100,7 @@
         <nav aria-label="Sections">
           <a href="/vue3-json-to-excel/">JSON to Excel</a>
           <a href="/vue3-json-to-excel/excel-to-json/" aria-current="page">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
           <a href="/vue3-json-to-excel/#vue-3">Vue 3 component</a>
           <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
         </nav>
@@ -159,7 +160,8 @@ const rows = XLSX.utils.sheet_to_json(sheet, { UTC: true });</code></pre>
           <code>fileBytes</code> is an <code>ArrayBuffer</code>, for example from <code>await file.arrayBuffer()</code>
           on a file input. <code>cellDates</code> turns date cells into <code>Date</code> objects instead of Excel
           serial numbers, and <code>UTC</code> keeps a date like 2 November from shifting a day in time zones east or
-          west of UTC.
+          west of UTC. The <a href="/vue3-json-to-excel/blog/excel-to-json-javascript/">Excel to JSON in JavaScript
+          guide</a> covers the other options.
         </p>
       </section>
 
@@ -197,6 +199,7 @@ const rows = XLSX.utils.sheet_to_json(sheet, { UTC: true });</code></pre>
         <p>
           <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
           <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
           <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
           <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
           <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>

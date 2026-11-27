@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Open a JSON File: Browser, Editor or Excel</title>
+    <meta name="description" content="A JSON file is plain text. Open it in a browser, a code editor or Notepad to read it, or turn it into an Excel table when you need rows and columns." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to open a JSON file" />
+    <meta property="og:description" content="A JSON file is plain text. Open it in a browser, a code editor or Notepad to read it, or turn it into an Excel table when you need rows and columns." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to open a JSON file",
+      "description": "A JSON file is plain text. Open it in a browser, a code editor or Notepad to read it, or turn it into an Excel table when you need rows and columns.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "how to open json file",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to open a JSON file",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to open a JSON file</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">A .json file is plain text written in JSON syntax, so you do not need special software to open it. Which program to use depends on whether you want to read it, edit it, or work with it as a table.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>What is inside a .json file</h2>
+          <p>
+            JSON stores data as objects in curly braces and lists in square brackets, with keys in double quotes. Here is a
+            small file with two records:
+          </p>
+          <pre><code>[
+  { &quot;name&quot;: &quot;Ada Lovelace&quot;, &quot;country&quot;: &quot;GB&quot;, &quot;active&quot;: true },
+  { &quot;name&quot;: &quot;Grace Hopper&quot;, &quot;country&quot;: &quot;US&quot;, &quot;active&quot;: true }
+]</code></pre>
+          <p>
+            JSON that systems exchange is UTF-8 text by definition (RFC 8259), so any text editor shows Turkish, German or
+            Chinese characters correctly as long as it reads the file as UTF-8.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Open it in a text editor</h2>
+          <p>
+            On Windows, right-click the file, choose <strong>Open with</strong> and pick Notepad. On a Mac, TextEdit
+            opens it too. This is fine for a quick look or a small edit. A long file written on a single line is hard to
+            read this way.
+          </p>
+          <p>
+            A code editor is more comfortable. Visual Studio Code colours the syntax, folds objects so you can collapse
+            what you do not need, and reformats a one-line file with <strong>Format Document</strong> (Shift+Alt+F on
+            Windows). It also underlines syntax errors, which helps when a program refuses to read the file.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Open it in a browser</h2>
+          <p>
+            Drag the file into a browser window. Firefox has a built-in JSON viewer with collapsible nodes, a filter box
+            and a Raw Data tab. Chrome shows the text as it is, with a <strong>Pretty-print</strong> checkbox at the top
+            that indents it. Nothing is uploaded when you open a local file this way.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Open it as a table in Excel</h2>
+          <p>
+            When the JSON is a list of records, a spreadsheet is often the easiest way to scan, sort and filter it. You
+            have two options:
+          </p>
+          <ul>
+            <li>
+              Import it with Power Query (<strong>Data › Get Data › From File › From JSON</strong>). The steps are in
+              <a href="/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/">how to open a JSON file in Excel</a>.
+            </li>
+            <li>
+              Convert it to .xlsx with the <a href="/vue3-json-to-excel/">JSON to Excel converter</a>, then open that file.
+              Each object becomes a row and nested objects get dotted column names.
+            </li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>When the file will not open</h2>
+          <p>
+            If a program says the file is invalid, the JSON itself is usually broken. The common mistakes are a comma
+            after the last item, single quotes instead of double quotes, and comments: JSON has no comment syntax. Paste
+            the text into the converter on this site and it shows the parser's error message, which names the problem
+            and usually the position.
+          </p>
+          <p>
+            Want something to practise on? The <a href="/vue3-json-to-excel/blog/sample-json-files/">sample JSON files</a>
+            cover a flat list, nested records, a single object and an API-style response.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/">How to open a JSON file in Excel</a></li>
+          <li><a href="/vue3-json-to-excel/blog/sample-json-files/">Sample JSON files to download and test</a></li>
+          <li><a href="/vue3-json-to-excel/blog/convert-json-to-csv/">How to convert JSON to CSV</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
