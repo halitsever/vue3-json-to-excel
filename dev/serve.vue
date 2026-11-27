@@ -1,6 +1,6 @@
 <script>
 import { defineComponent } from 'vue';
-import Vue3JsonToExcel from '@/vue3-json-to-excel.vue';
+import Vue3JsonToExcel from '../src/entry.esm.js';
 
 export default defineComponent({
   name: 'ServeDev',

@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue';
-import Vue3JsonToExcel, { toRows } from '@/vue3-json-to-excel.vue';
+import Vue3JsonToExcel, { toRows } from 'vue3-json-to-excel';
 
 const SAMPLE = `[
   {
