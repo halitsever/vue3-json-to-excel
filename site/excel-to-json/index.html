@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Excel to JSON Converter Online: Free, No Upload</title>
+    <meta
+      name="description"
+      content="Convert Excel to JSON online: open an .xlsx, .xls, .ods or .csv file, pick a sheet and download the rows as a JSON array. Runs in your browser, no upload."
+    />
+    <link rel="canonical" href="https://halitsever.github.io/vue3-json-to-excel/excel-to-json/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Excel to JSON converter online" />
+    <meta
+      property="og:description"
+      content="Open an Excel file, pick a sheet and download its rows as JSON. SheetJS reads the file in your browser, nothing is uploaded."
+    />
+    <meta property="og:url" content="https://halitsever.github.io/vue3-json-to-excel/excel-to-json/" />
+    <meta property="og:image" content="https://halitsever.github.io/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "name": "Excel to JSON converter online",
+            "url": "https://halitsever.github.io/vue3-json-to-excel/excel-to-json/",
+            "description": "Convert an Excel, ODS or CSV sheet to a JSON array in the browser. Nothing is uploaded.",
+            "inLanguage": "en",
+            "author": { "@type": "Person", "name": "Halit Sever", "jobTitle": "Developer", "url": "https://halit.org" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How do I convert Excel to JSON?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Open the file with the box on this page, pick the sheet if the workbook has more than one, then copy the JSON or download it as a .json file. The first row of the sheet becomes the keys of every object."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which file types can I convert?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": ".xlsx, .xlsm, .xlsb, the older .xls format, OpenDocument .ods and .csv. SheetJS reads all of them in the browser."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my spreadsheet uploaded?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. The page is static and has no backend. Your browser reads the file and builds the JSON on your computer."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What happens to dates and empty cells?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Date cells become ISO strings such as 2026-11-02, with the time added when the cell has one. Empty cells are left out of the object unless you tick the option that writes them as null."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I get nested JSON back from a flat sheet?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Tick the nested option and a header such as shipping.city becomes {\"shipping\": {\"city\": ...}}, and cells that hold JSON text such as [\"keyboard\",\"mouse\"] are parsed. That reverses what the JSON to Excel converter on this site writes."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/" aria-current="page">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/#vue-3">Vue 3 component</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <h1>Excel to JSON converter online</h1>
+        <p class="lead">
+          Open a spreadsheet, pick a sheet and get its rows as a JSON array that you can copy or download. Each row
+          becomes one object and the first row gives the keys. The file is read in your browser with SheetJS and is
+          never uploaded.
+        </p>
+      </section>
+
+      <section class="wrap" aria-label="Converter">
+        <div id="converter">
+          <noscript><p class="tool-status is-error">The converter needs JavaScript to run.</p></noscript>
+        </div>
+      </section>
+
+      <section class="wrap prose" id="how-it-works">
+        <h2>How a sheet becomes JSON</h2>
+        <ul>
+          <li>The first row is the header. Every row under it turns into an object with those headers as keys.</li>
+          <li>Numbers and booleans stay numbers and booleans. Text stays text.</li>
+          <li>
+            Date cells are written as ISO dates, for example <code>"2026-11-02"</code>, or with a time when the cell
+            has one.
+          </li>
+          <li>
+            Empty cells are left out of that row's object. Tick <em>Write empty cells as null</em> if every object
+            should have every key.
+          </li>
+          <li>A workbook with several sheets shows a sheet picker. Only the selected sheet is converted.</li>
+          <li>
+            With the nested option on, a header like <code>shipping.city</code> becomes a nested object and a cell
+            holding <code>["keyboard","mouse"]</code> becomes a real array. That is the reverse of the
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a>, so a file can make the round trip.
+          </li>
+        </ul>
+      </section>
+
+      <section class="wrap prose" id="javascript">
+        <h2>Excel to JSON in JavaScript</h2>
+        <p>
+          The converter is a small page around two SheetJS calls. In your own code, in Node.js or the browser, they
+          look like this:
+        </p>
+        <pre><code>import * as XLSX from 'xlsx';
+
+const workbook = XLSX.read(fileBytes, { cellDates: true });
+const sheet = workbook.Sheets[workbook.SheetNames[0]];
+const rows = XLSX.utils.sheet_to_json(sheet, { UTC: true });</code></pre>
+        <p>
+          <code>fileBytes</code> is an <code>ArrayBuffer</code>, for example from <code>await file.arrayBuffer()</code>
+          on a file input. <code>cellDates</code> turns date cells into <code>Date</code> objects instead of Excel
+          serial numbers, and <code>UTC</code> keeps a date like 2 November from shifting a day in time zones east or
+          west of UTC.
+        </p>
+      </section>
+
+      <section class="wrap prose" id="faq">
+        <h2>FAQ</h2>
+        <h3>How do I convert Excel to JSON?</h3>
+        <p>
+          Open the file with the box on this page, pick the sheet if the workbook has more than one, then copy the
+          JSON or download it as a .json file. The first row of the sheet becomes the keys of every object.
+        </p>
+        <h3>Which file types can I convert?</h3>
+        <p>
+          .xlsx, .xlsm, .xlsb, the older .xls format, OpenDocument .ods and .csv. SheetJS reads all of them in the
+          browser.
+        </p>
+        <h3>Is my spreadsheet uploaded?</h3>
+        <p>No. The page is static and has no backend. Your browser reads the file and builds the JSON on your computer.</p>
+        <h3>What happens to dates and empty cells?</h3>
+        <p>
+          Date cells become ISO strings such as 2026-11-02, with the time added when the cell has one. Empty cells are
+          left out of the object unless you tick the option that writes them as <code>null</code>.
+        </p>
+        <h3>Can I get nested JSON back from a flat sheet?</h3>
+        <p>
+          Yes. Tick the nested option and a header such as <code>shipping.city</code> becomes
+          <code>{"shipping": {"city": ...}}</code>, and cells that hold JSON text such as
+          <code>["keyboard","mouse"]</code> are parsed. That reverses what the
+          <a href="/vue3-json-to-excel/">JSON to Excel converter</a> on this site writes.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are read by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+
+    <script type="module" src="/excel-to-json.js"></script>
+  </body>
+</html>

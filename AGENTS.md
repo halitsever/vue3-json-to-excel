@@ -15,6 +15,7 @@ vue3-json-to-excel is a small npm package: one Vue 3 component that Vue apps use
 - npm has 1.0.5, but package.json says 1.0.1. There is no publish workflow: the owner publishes by hand, so leave `version` alone.
 - A push to `main` runs CI and `.github/workflows/pages.yml`, which deploys `site-dist/` to GitHub Pages. Nothing is published to npm.
 - The site's preview table uses `toRows()` from the component file, so the preview and the download always flatten JSON the same way.
+- Every `index.html` under `site/` is a page: `vite.site.config.mjs` collects them as build inputs. Add a new page to `site/public/sitemap.xml` and link it from the others. `site/excel-to-json/` reads spreadsheets with SheetJS directly, not through the component.
 - The package ships `dist/*` and `src/**/*.vue`. `dist/` is ignored by git.
 - `src/LICENSE` (2021) and the root `LICENSE` (2022) differ.
 
