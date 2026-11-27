@@ -6,8 +6,9 @@ Install with `npm i vue vue3-json-to-excel`. `<vue3-json-to-excel :jsonData="row
 
 ## Docs
 
-- [JSON to Excel converter](https://halitsever.github.io/vue3-json-to-excel/): online converter, component usage, options and FAQ
-- [Excel to JSON converter](https://halitsever.github.io/vue3-json-to-excel/excel-to-json/): reads .xlsx, .xls, .ods or .csv in the browser and returns the rows as JSON, with an option to rebuild nested objects
+- [JSON to Excel converter](https://projects.halit.org/vue3-json-to-excel/): online converter, component usage, options and FAQ
+- [Blog](https://projects.halit.org/vue3-json-to-excel/blog/): guides on opening JSON in Excel, nested JSON, JSON to CSV, sample JSON files, and SheetJS and Vue 3 code
+- [Excel to JSON converter](https://projects.halit.org/vue3-json-to-excel/excel-to-json/): reads .xlsx, .xls, .ods or .csv in the browser and returns the rows as JSON, with an option to rebuild nested objects
 - [README](https://github.com/halitsever/vue3-json-to-excel/blob/main/Readme.MD): install, usage, props and a full example
 - [Component source](https://github.com/halitsever/vue3-json-to-excel/blob/main/src/vue3-json-to-excel.vue): props, defaults, flattening and the export logic
 - [Plugin entry](https://github.com/halitsever/vue3-json-to-excel/blob/main/src/entry.esm.js): default export with install() for app.use()

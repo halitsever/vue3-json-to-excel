@@ -5,7 +5,7 @@
 
 <p align="center">
 Vue 3 component that exports JSON to an Excel (.xlsx) file in the browser, built on SheetJS.<br>
-Try it in the <a href="https://halitsever.github.io/vue3-json-to-excel/">online JSON to Excel converter</a>.<br>
+Try it in the <a href="https://projects.halit.org/vue3-json-to-excel/">online JSON to Excel converter</a>.<br>
 <br/>
 <br/>
 <a href="https://www.npmjs.com/package/vue3-json-to-excel"><img src="https://img.shields.io/npm/v/vue3-json-to-excel" alt="npm version"/></a>
@@ -14,7 +14,7 @@ Try it in the <a href="https://halitsever.github.io/vue3-json-to-excel/">online 
 <img src="https://img.shields.io/github/sponsors/halitsever" alt="GitHub sponsors"/>
 </p>
 <p align="center">
-<a align="center" href="https://halitsever.github.io/vue3-json-to-excel/">Documentation</a>
+<a align="center" href="https://projects.halit.org/vue3-json-to-excel/">Documentation</a>
   </p>
 </p>
 

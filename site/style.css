@@ -444,3 +444,6 @@ td {
   padding-top: 8px;
   border-top: 1px solid var(--line);
 }
+article .prose {
+  margin-top: 32px;
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "order": 1001,
+    "customer": "Acme Ltd",
+    "total": 249.9,
+    "paid": true,
+    "shipping": { "city": "Berlin", "country": "DE" },
+    "items": ["keyboard", "mouse"]
+  },
+  {
+    "order": 1002,
+    "customer": "Globex",
+    "total": 89.5,
+    "paid": false,
+    "shipping": { "city": "Lyon", "country": "FR" },
+    "items": ["monitor"]
+  },
+  {
+    "order": 1003,
+    "customer": "Initech",
+    "total": 1200,
+    "paid": true,
+    "shipping": { "city": "Austin", "country": "US" },
+    "items": []
+  }
+]

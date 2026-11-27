@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nested JSON to Excel: Objects and Arrays as Columns</title>
+    <meta name="description" content="A sheet is flat and JSON is not. How nested objects become dotted columns, the two ways to handle arrays, and how to get the nested JSON back from Excel." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/nested-json-to-excel/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Nested JSON to Excel: how objects and arrays become columns" />
+    <meta property="og:description" content="A sheet is flat and JSON is not. How nested objects become dotted columns, the two ways to handle arrays, and how to get the nested JSON back from Excel." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/nested-json-to-excel/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Nested JSON to Excel: how objects and arrays become columns",
+      "description": "A sheet is flat and JSON is not. How nested objects become dotted columns, the two ways to handle arrays, and how to get the nested JSON back from Excel.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/nested-json-to-excel/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/nested-json-to-excel/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "nested json to excel",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Nested JSON to Excel: how objects and arrays become columns",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/nested-json-to-excel/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>Nested JSON to Excel: how objects and arrays become columns</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">A worksheet is a grid, while JSON can nest objects inside objects and lists inside both. Any JSON to Excel conversion has to decide what to do with that nesting. Here are the usual options and what each one costs.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>What goes wrong without flattening</h2>
+          <p>
+            SheetJS, the library most JavaScript tools use to write Excel files, maps each key of an object to a column.
+            When a value is itself an object or an array, it cannot put it in a cell. With SheetJS 0.20.3 this record:
+          </p>
+          <pre><code>{ &quot;id&quot;: 1, &quot;shipping&quot;: { &quot;city&quot;: &quot;Berlin&quot; }, &quot;items&quot;: [&quot;k&quot;, &quot;m&quot;] }</code></pre>
+          <p>
+            gives a sheet with the headers <code>id</code>, <code>shipping</code> and <code>items</code>, and the last two
+            cells empty. No error, just missing data. That is why the
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a> on this site flattens every record before it hands it
+            to SheetJS.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Nested objects: dotted column names</h2>
+          <p>
+            An object inside a record has a fixed set of keys, so each key can become a column. The path is joined with
+            dots:
+          </p>
+          <pre><code>{ &quot;order&quot;: 1001, &quot;shipping&quot;: { &quot;city&quot;: &quot;Berlin&quot;, &quot;country&quot;: &quot;DE&quot; } }
+
+order | shipping.city | shipping.country
+1001  | Berlin        | DE</code></pre>
+          <p>
+            This works at any depth: <code>{"a": {"b": {"c": 1}}}</code> becomes a column <code>a.b.c</code>. It is
+            also what <code>pandas.json_normalize</code> does in Python by default, so dotted headers are a common
+            convention.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Arrays: one cell, or one row per item</h2>
+          <p>Arrays are harder because their length changes from record to record. There are two reasonable layouts.</p>
+          <h3>Keep the array in one cell</h3>
+          <p>
+            The converter writes the array as JSON text, so <code>["keyboard","mouse"]</code> sits in the
+            <code>items</code> cell. You keep one row per record and lose nothing, but you cannot filter on a single item
+            in Excel.
+          </p>
+          <h3>One row per array item</h3>
+          <p>
+            Repeat the parent fields on every row, once per item. Power Query's <em>Expand to New Rows</em> does this in
+            Excel. In JavaScript you can do it before converting:
+          </p>
+          <pre><code>const rows = orders.flatMap(({ items, ...order }) =&gt;
+  items.length ? items.map((item) =&gt; ({ ...order, item })) : [{ ...order, item: null }]
+);</code></pre>
+          <p>
+            With the <a href="/vue3-json-to-excel/samples/orders.json">sample orders</a> this turns 3 orders into 4 rows:
+            two for order 1001, one each for 1002 and 1003. The empty-array case keeps order 1003 with an empty
+            <code>item</code> instead of dropping it. Keep in mind that totals now repeat, so summing the
+            <code>total</code> column counts order 1001 twice.
+          </p>
+          <h3>Two sheets</h3>
+          <p>
+            For larger data, a third layout is a sheet of orders and a separate sheet of items that carries the order
+            number, like two database tables. Sums stay correct, and you join them with XLOOKUP when you need both.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Getting nested JSON back from Excel</h2>
+          <p>
+            Dotted headers and JSON text cells can be reversed. The <a href="/vue3-json-to-excel/excel-to-json/">Excel to
+            JSON converter</a> has an option that turns <code>shipping.city</code> back into
+            <code>{"shipping": {"city": ...}}</code> and parses cells that hold JSON arrays or objects. A file made by
+            the JSON to Excel converter comes back with the same structure, as long as nobody renamed the headers.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/">How to open a JSON file in Excel</a></li>
+          <li><a href="/vue3-json-to-excel/blog/sample-json-files/">Sample JSON files to download and test</a></li>
+          <li><a href="/vue3-json-to-excel/blog/json-to-excel-javascript/">JSON to Excel in JavaScript with SheetJS</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

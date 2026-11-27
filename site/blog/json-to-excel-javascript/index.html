@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JSON to Excel in JavaScript: SheetJS json_to_sheet</title>
+    <meta name="description" content="Export a JSON array to an .xlsx file in JavaScript with SheetJS json_to_sheet: column order, widths, dates, nested objects and the browser download." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/json-to-excel-javascript/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="JSON to Excel in JavaScript with SheetJS" />
+    <meta property="og:description" content="Export a JSON array to an .xlsx file in JavaScript with SheetJS json_to_sheet: column order, widths, dates, nested objects and the browser download." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/json-to-excel-javascript/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "JSON to Excel in JavaScript with SheetJS",
+      "description": "Export a JSON array to an .xlsx file in JavaScript with SheetJS json_to_sheet: column order, widths, dates, nested objects and the browser download.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-excel-javascript/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-excel-javascript/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "json to excel javascript",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "JSON to Excel in JavaScript with SheetJS",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-excel-javascript/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>JSON to Excel in JavaScript with SheetJS</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">Four SheetJS calls turn an array of objects into an Excel download. This guide covers those calls, then the details that bite in real data: column order, widths, dates and nested values.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>The four calls</h2>
+          <pre><code>npm i https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz</code></pre>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+
+const rows = [
+  { id: 1, name: &#x27;Ada&#x27;, city: &#x27;London&#x27; },
+  { id: 2, name: &#x27;Grace&#x27;, city: &#x27;New York&#x27; },
+];
+
+const sheet = XLSX.utils.json_to_sheet(rows);
+const workbook = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(workbook, sheet, &#x27;People&#x27;);
+XLSX.writeFile(workbook, &#x27;people.xlsx&#x27;);</code></pre>
+          <p>
+            In the browser, <code>writeFile</code> starts a download. In Node.js with the ES module build, call
+            <code>XLSX.set_fs(fs)</code> first, or it throws <em>cannot save file</em>. The keys of the objects become the
+            header row, in the order they first appear.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Column order</h2>
+          <p>
+            Pass <code>header</code> to put some columns first. Keys you leave out still appear, after the ones you
+            listed:
+          </p>
+          <pre><code>XLSX.utils.json_to_sheet(rows, { header: [&#x27;name&#x27;, &#x27;id&#x27;] });
+// header row: name | id | city</code></pre>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Column widths and sheet names</h2>
+          <p>
+            Widths go in the sheet's <code>!cols</code> array, measured in characters with <code>wch</code>:
+          </p>
+          <pre><code>sheet[&#x27;!cols&#x27;] = [{ wch: 12 }, { wch: 6 }, { wch: 14 }];</code></pre>
+          <p>
+            Sheet names follow Excel's rules. A name longer than 31 characters makes <code>book_append_sheet</code> throw
+            <em>Sheet name cannot exceed 31 chars</em>, so trim names you build from user input.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Dates</h2>
+          <p>
+            A JavaScript <code>Date</code> in your data becomes a real date cell. A date string such as
+            <code>"2026-01-15"</code> stays text. Convert strings to <code>Date</code> objects first if people will sort
+            or filter by date in Excel.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Nested objects and arrays</h2>
+          <p>
+            <code>json_to_sheet</code> has no cell value for an object or an array, and leaves those cells empty. Flatten
+            the records first. This is the function the <a href="/vue3-json-to-excel/">JSON to Excel converter</a> and the
+            vue3-json-to-excel component use:
+          </p>
+          <pre><code>function flatten(value, prefix, out) {
+  Object.keys(value).forEach((key) =&gt; {
+    const path = prefix ? prefix + &#x27;.&#x27; + key : key;
+    const item = value[key];
+    if (Array.isArray(item)) out[path] = JSON.stringify(item);
+    else if (item !== null &amp;&amp; typeof item === &#x27;object&#x27;) flatten(item, path, out);
+    else out[path] = item;
+  });
+  return out;
+}
+
+const sheet = XLSX.utils.json_to_sheet(rows.map((row) =&gt; flatten(row, &#x27;&#x27;, {})));</code></pre>
+          <p>
+            Nested objects become dotted columns like <code>shipping.city</code> and arrays become JSON text in one cell.
+            <a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel</a> covers the other layouts.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>In a Vue 3 app</h2>
+          <p>
+            If your app is built with Vue 3, the vue3-json-to-excel component wraps these calls in a download link. See
+            <a href="/vue3-json-to-excel/blog/vue-3-export-to-excel/">Vue 3 export to Excel</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+          <li><a href="/vue3-json-to-excel/blog/excel-to-json-javascript/">Convert Excel to JSON in JavaScript</a></li>
+          <li><a href="/vue3-json-to-excel/blog/vue-3-export-to-excel/">Vue 3 export to Excel: download JSON as an .xlsx file</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

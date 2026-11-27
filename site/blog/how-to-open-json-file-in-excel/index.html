@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Open a JSON File in Excel (Power Query Steps)</title>
+    <meta name="description" content="Open a JSON file in Excel with Power Query: Get Data, From JSON, turn the list into a table and expand the columns. Plus a quicker route for one-off files." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to open a JSON file in Excel" />
+    <meta property="og:description" content="Open a JSON file in Excel with Power Query: Get Data, From JSON, turn the list into a table and expand the columns. Plus a quicker route for one-off files." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to open a JSON file in Excel",
+      "description": "Open a JSON file in Excel with Power Query: Get Data, From JSON, turn the list into a table and expand the columns. Plus a quicker route for one-off files.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/",
+      "datePublished": "2026-11-27",
+      "dateModified": "2026-11-27",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "how to open json file in excel",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to open a JSON file in Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to open a JSON file in Excel</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-27">27 November 2026</time></p>
+          <p class="lead">Excel cannot open a .json file the way it opens a .csv. It imports JSON through Power Query instead, and you shape the data into a table before it lands on a sheet. Here are the steps, and a shorter way when you only need the file once.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>Import JSON with Power Query</h2>
+          <p>
+            The steps below are from Excel for Microsoft 365 on Windows. Power Query is built into that version under the
+            <strong>Data</strong> tab, where Microsoft also calls it Get &amp; Transform.
+          </p>
+          <ol>
+            <li>Open a blank workbook and go to <strong>Data › Get Data › From File › From JSON</strong>.</li>
+            <li>Pick your .json file and click <strong>Import</strong>. The Power Query Editor opens.</li>
+            <li>
+              If the file is an array, the editor shows a single <em>List</em> with one <em>Record</em> per item. Click
+              <strong>To Table</strong> on the ribbon and confirm with OK. You now have one column, <code>Column1</code>,
+              full of records.
+            </li>
+            <li>
+              Click the expand button (two arrows) in the <code>Column1</code> header, tick the fields you want, untick
+              <em>Use original column name as prefix</em> if you want short headers, and click OK.
+            </li>
+            <li>
+              Columns that still show <em>Record</em> are nested objects. Expand them the same way. Columns that show
+              <em>List</em> are arrays: choose <em>Expand to New Rows</em> for one row per item, or
+              <em>Extract Values</em> to join the items into one cell.
+            </li>
+            <li>Click <strong>Home › Close &amp; Load</strong>. Excel writes the result to a new sheet as a table.</li>
+          </ol>
+          <p>
+            Many API exports wrap the array in an object, for example <code>{"page": 1, "data": [...]}</code>. Power Query
+            then opens a <em>Record</em> instead of a list. Click the <em>List</em> link next to <code>data</code> to drill
+            into the array, and carry on from step 3.
+          </p>
+          <p>
+            The query remembers the file path. When the JSON file changes, <strong>Data › Refresh All</strong> reads it
+            again and rebuilds the table, which is the main reason to use Power Query for a file you get every week.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>The quicker way: convert the file to .xlsx first</h2>
+          <p>
+            For a file you only need to look at once, expanding columns by hand is slow. The
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a> on this site does the flattening in one step:
+          </p>
+          <ol>
+            <li>Upload the .json file or paste its contents.</li>
+            <li>Check the preview table. Each object in the array is one row.</li>
+            <li>Click <strong>Download .xlsx</strong> and open the file in Excel, LibreOffice Calc or Google Sheets.</li>
+          </ol>
+          <p>
+            Nested objects become dotted columns, so <code>{"shipping": {"city": "Berlin"}}</code> lands in a
+            <code>shipping.city</code> column. Arrays inside an object go into one cell as JSON text, for example
+            <code>["keyboard","mouse"]</code>. The file is built in your browser and is not uploaded anywhere.
+          </p>
+          <p>
+            If you need one row per array item instead, Power Query's <em>Expand to New Rows</em> is the better fit. The
+            <a href="/vue3-json-to-excel/blog/nested-json-to-excel/">nested JSON guide</a> compares both layouts.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Which one to use</h2>
+          <ul>
+            <li><strong>Power Query</strong> when the same JSON file comes back with new data and you want to refresh.</li>
+            <li><strong>Power Query</strong> when arrays should become extra rows.</li>
+            <li><strong>The converter</strong> for a one-off look at a file, or when your Excel has no From JSON entry.</li>
+            <li><strong>The converter</strong> when the data should not pass through any online service: it runs locally in the page.</li>
+          </ul>
+          <p>
+            If Excel shows an error on import, the file may not be valid JSON. Paste it into the converter: it prints the
+            parser's message, which usually points at a trailing comma or a missing quote.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file/">How to open a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/sample-json-files/">Sample JSON files to download and test</a></li>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
