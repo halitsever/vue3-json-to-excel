@@ -15,7 +15,7 @@ vue3-json-to-excel is a small npm package: one Vue 3 component that Vue apps use
 - `xlsx` is a devDependency installed from a tarball on cdn.sheetjs.com, not from the npm registry. `npm ci` needs access to that host, and Dependabot does not update it, so bump the URL by hand.
 - SheetJS is bundled into every file in `dist/`, and `vue` is the only external. Keep `dependencies` empty so installing the package pulls nothing else.
 - `site/` imports `vue3-json-to-excel` by its package name. `vite.site.config.mjs` aliases that to `dist/vue3-json-to-excel.mjs`, so the site runs on the bundle that ships to npm.
-- Pushing a `v*` tag runs `.github/workflows/publish.yml`, which publishes to npm through trusted publishing (OIDC, no token). The tag must match `version` in `package.json`, and `prepublishOnly` runs the tests.
+- Pushing a `v*` tag runs `.github/workflows/release.yml`, which publishes to npm through trusted publishing (OIDC, no token). The tag must match `version` in `package.json`, and `prepublishOnly` runs the tests.
 - A push to `main` runs CI and `.github/workflows/pages.yml`, which deploys `site-dist/` to GitHub Pages. Nothing is published to npm.
 - The site's preview table uses the package's `toRows()` export, so the preview and the download always flatten JSON the same way.
 - Every `index.html` under `site/` is a page: `vite.site.config.mjs` collects them as build inputs. Add a new page to `site/public/sitemap.xml` and link it from the others. `site/excel-to-json/` reads spreadsheets with SheetJS directly, not through the component.
