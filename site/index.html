@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JSON to Excel Converter Online | Vue 3 JSON to Excel</title>
+    <title>JSON to Excel Converter Online: Free .xlsx Download</title>
     <meta
       name="description"
-      content="Convert JSON to Excel online: paste or upload JSON, preview the table and download an .xlsx file. It runs in your browser and nothing is uploaded."
+      content="Free JSON to Excel converter online: paste or upload a JSON file, preview the table and download an .xlsx sheet. Nested JSON works. Nothing is uploaded."
     />
     <link rel="canonical" href="https://halitsever.github.io/vue3-json-to-excel/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -14,7 +14,7 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="vue3-json-to-excel" />
-    <meta property="og:title" content="JSON to Excel converter and Vue 3 component" />
+    <meta property="og:title" content="JSON to Excel converter online" />
     <meta
       property="og:description"
       content="Paste or upload JSON, preview the table and download an .xlsx file. Built with vue3-json-to-excel, a Vue 3 component on SheetJS."
@@ -31,18 +31,17 @@
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "WebApplication",
-            "name": "JSON to Excel converter",
+            "@type": "WebPage",
+            "name": "JSON to Excel converter online",
             "url": "https://halitsever.github.io/vue3-json-to-excel/",
             "description": "Convert JSON to an Excel .xlsx file in the browser. Nothing is uploaded.",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Any",
-            "browserRequirements": "Requires JavaScript",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "inLanguage": "en",
+            "about": { "@id": "#source" },
             "author": { "@id": "#author" }
           },
           {
             "@type": "SoftwareSourceCode",
+            "@id": "#source",
             "name": "vue3-json-to-excel",
             "description": "Vue 3 component that exports JSON to an Excel (.xlsx) file in the browser, built on SheetJS.",
             "codeRepository": "https://github.com/halitsever/vue3-json-to-excel",
@@ -50,6 +49,75 @@
             "runtimePlatform": "Vue 3",
             "license": "https://opensource.org/licenses/MIT",
             "author": { "@id": "#author" }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How do I convert JSON to Excel?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Paste your JSON into the box on this page or upload a .json file. The table on the right shows how the rows and columns will look. Click Download .xlsx and open the file in Excel."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is this JSON to Excel converter free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. There is no sign-up and no usage limit. The page and the vue3-json-to-excel component behind it are open source under the MIT license."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is my JSON uploaded anywhere?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. This is a static page on GitHub Pages with no backend. Your browser parses the JSON and SheetJS builds the .xlsx file on your computer."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which JSON can I convert to Excel?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "An array of objects, which gives one row per object, or a single object, which gives one row. Nested objects become dotted columns such as shipping.city, and arrays inside an object are written to one cell as JSON text."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is there a size limit?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The converter sets none. Large files are limited by your browser's memory. The preview shows the first 50 rows, and the download has all of them."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I convert Excel back to JSON?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, with the Excel to JSON converter on this site. It reads .xlsx, .xls, .ods and .csv files and can rebuild nested objects from dotted column names."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I open the file in Google Sheets or LibreOffice?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. The download is a standard .xlsx workbook, which Excel, LibreOffice Calc and Google Sheets all open."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does the component work with Vue 2?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. It is written for Vue 3 and lists vue ^3.0.5 as its peer dependency."
+                }
+              }
+            ]
           },
           {
             "@type": "Person",
@@ -73,6 +141,7 @@
           vue3-json-to-excel
         </a>
         <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
           <a href="#vue-3">Vue 3 component</a>
           <a href="#options">Options</a>
           <a href="#faq">FAQ</a>
@@ -83,11 +152,12 @@
 
     <main>
       <section class="hero wrap">
-        <h1>JSON to Excel converter</h1>
+        <h1>JSON to Excel converter online</h1>
         <p class="lead">
-          Paste or upload JSON, check the table, then download it as an Excel (.xlsx) file. The conversion runs in your
-          browser, so your data never leaves your computer. The download button on this page is
-          <a href="#vue-3">vue3-json-to-excel</a>, a Vue 3 component you can add to your own app.
+          Paste JSON or upload a .json file, check the table, then download it as an Excel (.xlsx) file. Nested
+          objects get their own columns. The conversion runs in your browser, so your data never leaves your
+          computer. The download button on this page is <a href="#vue-3">vue3-json-to-excel</a>, a Vue 3 component
+          you can add to your own app.
         </p>
       </section>
 
@@ -110,6 +180,10 @@
           <li>Numbers and booleans keep their type in Excel. <code>null</code> leaves the cell empty.</li>
           <li>Top-level values that are not objects go into a column named <code>value</code>.</li>
         </ul>
+        <p>
+          Going the other way? The <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> reads an
+          .xlsx, .xls, .ods or .csv file and gives you the rows as a JSON array.
+        </p>
       </section>
 
       <section class="wrap prose" id="vue-3">
@@ -215,6 +289,16 @@ XLSX.writeFile(workbook, 'output.xlsx');</code></pre>
 
       <section class="wrap prose" id="faq">
         <h2>FAQ</h2>
+        <h3>How do I convert JSON to Excel?</h3>
+        <p>
+          Paste your JSON into the box on this page or upload a .json file. The table on the right shows how the rows
+          and columns will look. Click <em>Download .xlsx</em> and open the file in Excel.
+        </p>
+        <h3>Is this JSON to Excel converter free?</h3>
+        <p>
+          Yes. There is no sign-up and no usage limit. The page and the vue3-json-to-excel component behind it are
+          open source under the MIT license.
+        </p>
         <h3>Is my JSON uploaded anywhere?</h3>
         <p>
           No. This is a static page on GitHub Pages with no backend. Your browser parses the JSON and SheetJS builds
@@ -223,13 +307,18 @@ XLSX.writeFile(workbook, 'output.xlsx');</code></pre>
         <h3>Which JSON can I convert to Excel?</h3>
         <p>
           An array of objects, which gives one row per object, or a single object, which gives one row. Nested objects
-          and arrays inside the objects are fine too. See
-          <a href="#how-it-works">how JSON becomes a spreadsheet</a>.
+          become dotted columns such as <code>shipping.city</code>, and arrays inside an object are written to one
+          cell as JSON text. See <a href="#how-it-works">how JSON becomes a spreadsheet</a>.
         </p>
         <h3>Is there a size limit?</h3>
         <p>
           The converter sets none. Large files are limited by your browser's memory. The preview shows the first 50
           rows, and the download has all of them.
+        </p>
+        <h3>Can I convert Excel back to JSON?</h3>
+        <p>
+          Yes, with the <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> on this site. It reads
+          .xlsx, .xls, .ods and .csv files and can rebuild nested objects from dotted column names.
         </p>
         <h3>Can I open the file in Google Sheets or LibreOffice?</h3>
         <p>Yes. The download is a standard .xlsx workbook, which Excel, LibreOffice Calc and Google Sheets all open.</p>
@@ -241,6 +330,7 @@ XLSX.writeFile(workbook, 'output.xlsx');</code></pre>
     <footer class="site-footer">
       <div class="wrap footer-inner">
         <p>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
           <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
           <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
           <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
