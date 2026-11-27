@@ -1,6 +1,6 @@
 <script>
 import { defineComponent } from "vue";
-import * as XLSX from "xlsx";
+import { utils, writeFile } from "xlsx";
 
 /** SheetJS cannot write an object into a cell, so nested keys become dotted column names. */
 function flatten(value, prefix, out) {
@@ -38,10 +38,10 @@ export default /*#__PURE__*/ defineComponent({
       this.fileName === undefined
         ? (this.fileNameAndExtension = "output.xlsx")
         : (this.fileNameAndExtension = this.fileName + ".xlsx");
-      var rows = XLSX.utils.json_to_sheet(toRows(this.jsonData));
-      var wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, rows);
-      XLSX.writeFile(wb, this.fileNameAndExtension);
+      var rows = utils.json_to_sheet(toRows(this.jsonData));
+      var wb = utils.book_new();
+      utils.book_append_sheet(wb, rows);
+      writeFile(wb, this.fileNameAndExtension);
     },
   },
   props: {

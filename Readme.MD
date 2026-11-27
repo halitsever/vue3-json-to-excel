@@ -28,6 +28,8 @@ Try it in the <a href="https://projects.halit.org/vue3-json-to-excel/">online JS
 - **Link text** - Set it with `buttonText`, or keep the default `Download`
 - **Runs in the browser** - The workbook is built with [SheetJS](https://sheetjs.com) on the client, no server needed
 - **Global or local** - Register it with `app.use()` or import it into a single component
+- **No extra dependencies** - SheetJS is bundled, so `vue` is the only thing you need next to it
+- **TypeScript** - Types for the props and for `toRows` ship with the package
 
 <p align="center" >
 <img src="https://halitsever-api.vercel.app/api/installation"/>
@@ -36,7 +38,7 @@ Try it in the <a href="https://projects.halit.org/vue3-json-to-excel/">online JS
 Get the package:
 
 ```bash
-npm i vue vue3-json-to-excel
+npm i vue3-json-to-excel
 ```
 
 Usage:
@@ -73,6 +75,24 @@ export default defineComponent({
     <vue3-json-to-excel fileName="myFile" buttonText="Download Halit's excel file" :jsonData="{ hello: 'world', world: 'hello' }" />
   </div>
 </template>
+```
+
+Register it once for the whole app:
+
+```js
+import { createApp } from 'vue';
+import Vue3JsonToExcel from 'vue3-json-to-excel';
+import App from './App.vue';
+
+createApp(App).use(Vue3JsonToExcel).mount('#app');
+```
+
+`toRows` is the function the component uses to flatten JSON into sheet rows. Import it to preview the same rows in a table:
+
+```js
+import { toRows } from 'vue3-json-to-excel';
+
+toRows({ id: 1, shipping: { city: 'Berlin' } }); // [{ id: 1, 'shipping.city': 'Berlin' }]
 ```
 
 <p align="center">

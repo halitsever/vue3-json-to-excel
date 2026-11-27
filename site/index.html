@@ -194,7 +194,7 @@
           click builds the workbook with SheetJS and starts the download. There is no server involved.
         </p>
         <p>Install it:</p>
-        <pre><code>npm i vue vue3-json-to-excel</code></pre>
+        <pre><code>npm i vue3-json-to-excel</code></pre>
         <p>Use it with an object or an array of objects:</p>
         <pre><code>&lt;vue3-json-to-excel :jsonData="{ hello: 'world', world: 'hello' }" /&gt;</code></pre>
         <p>Full example from the README:</p>
@@ -225,8 +225,9 @@ import App from './App.vue';
 
 createApp(App).use(Vue3JsonToExcel).mount('#app');</code></pre>
         <p class="note">
-          Arrays and nested objects in <code>jsonData</code> need a release newer than 1.0.5. Version 1.0.5 on npm
-          writes one flat object as a single row.
+          Arrays and nested objects in <code>jsonData</code> need version 1.1.0 or newer. Version 1.0.5 writes one
+          flat object as a single row. From 1.1.0 the package has no dependencies of its own, ships TypeScript types
+          and exports <code>toRows</code>, the function that flattens the JSON into sheet rows.
         </p>
       </section>
 

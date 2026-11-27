@@ -1,11 +1,8 @@
-// iife/cjs usage extends esm default export - so import it all
-import component, * as namedExports from '@/entry.esm';
+import component, * as namedExports from "./entry.esm.js";
 
-// Attach named exports directly to component. IIFE/CJS will
-// only expose one global var, with named exports exposed as properties of
-// that global var (eg. plugin.namedExport)
+/** CJS and IIFE expose one value, so named exports ride on the component. */
 Object.entries(namedExports).forEach(([exportName, exported]) => {
-  if (exportName !== 'default') component[exportName] = exported;
+  if (exportName !== "default") component[exportName] = exported;
 });
 
 export default component;
