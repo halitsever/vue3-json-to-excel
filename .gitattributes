@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# The site pages are mostly prose, so GitHub leaves them out of the language bar.
+site/**/*.html linguist-documentation
