@@ -1,5 +1,5 @@
 <p align="center" class="logo-section">
-<img src="https://i.ibb.co/NrPh9xP/image.png" height="80" width="80" alt="vue3-json-to-excel logo"/>
+<img src="https://raw.githubusercontent.com/halitsever/vue3-json-to-excel/main/.github/logo.svg" height="80" width="80" alt="vue3-json-to-excel logo"/>
 <br/>
 <img src="https://halitsever-api.vercel.app/api/repo-title?title=Vue3%20JSON%20to%20Excel">
 
