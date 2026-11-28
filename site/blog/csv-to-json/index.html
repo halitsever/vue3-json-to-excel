@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSV to JSON: Convert a CSV File Online or in Code</title>
+    <meta name="description" content="Convert a CSV file to a JSON array in the browser, with SheetJS in JavaScript or with Python. What happens to numbers, TRUE and FALSE, dates and leading zeros." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/csv-to-json/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to convert CSV to JSON" />
+    <meta property="og:description" content="Convert a CSV file to a JSON array in the browser, with SheetJS in JavaScript or with Python. What happens to numbers, TRUE and FALSE, dates and leading zeros." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/csv-to-json/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to convert CSV to JSON",
+      "description": "Convert a CSV file to a JSON array in the browser, with SheetJS in JavaScript or with Python. What happens to numbers, TRUE and FALSE, dates and leading zeros.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/csv-to-json/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/csv-to-json/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "csv to json",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to convert CSV to JSON",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/csv-to-json/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to convert CSV to JSON</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">A CSV file is a table in plain text, and JSON for a table is an array of objects: one object per line, with the header row as the keys. The conversion is simple. The part worth checking is what each tool does with values that look like numbers or dates.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>Online, without uploading the file</h2>
+          <p>
+            The <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> on this site also reads .csv files. SheetJS parses the
+            file in your browser, so nothing is sent to a server.
+          </p>
+          <ol>
+            <li>Open the converter and choose your .csv file.</li>
+            <li>Tick <strong>Write empty cells as null</strong> if every object should have every key. Without it, empty cells are left out.</li>
+            <li>Tick the nested option if your headers use dots, such as <code>address.city</code>, and you want nested objects back.</li>
+            <li>Copy the JSON or download it as a .json file.</li>
+          </ol>
+        </section>
+
+        <section class="wrap prose">
+          <h2>What happens to the values</h2>
+          <p>
+            CSV has no types: every value is text. A converter either keeps everything as strings or guesses. SheetJS guesses,
+            and so does the converter above. We ran this file through SheetJS 0.20.3 with the same options the converter uses:
+          </p>
+          <pre><code>id,name,price,active,joined,zip
+1,Ada,9.50,TRUE,2026-11-02,02134
+2,Grace,12,false,11/03/2026,
+3,&quot;Smith, Jo&quot;,7,TRUE,,90210</code></pre>
+          <p>The result:</p>
+          <pre><code>[
+  { &quot;id&quot;: 1, &quot;name&quot;: &quot;Ada&quot;, &quot;price&quot;: 9.5, &quot;active&quot;: true, &quot;joined&quot;: &quot;2026-11-02&quot;, &quot;zip&quot;: 2134 },
+  { &quot;id&quot;: 2, &quot;name&quot;: &quot;Grace&quot;, &quot;price&quot;: 12, &quot;active&quot;: &quot;false&quot;, &quot;joined&quot;: &quot;2026-11-03&quot; },
+  { &quot;id&quot;: 3, &quot;name&quot;: &quot;Smith, Jo&quot;, &quot;price&quot;: 7, &quot;active&quot;: true, &quot;zip&quot;: 90210 }
+]</code></pre>
+          <ul>
+            <li><strong>Numbers</strong> become JSON numbers, and <code>9.50</code> becomes <code>9.5</code>.</li>
+            <li><strong>TRUE and FALSE</strong> in capitals, the way Excel writes them, become booleans. Lowercase <code>false</code> stayed a string.</li>
+            <li><strong>Dates</strong> become ISO dates. <code>11/03/2026</code> was read month first, as 3 November.</li>
+            <li><strong>Leading zeros are lost</strong>: the postcode <code>02134</code> became the number <code>2134</code>.</li>
+            <li><strong>Quoted values</strong> keep their commas: <code>"Smith, Jo"</code> stays one value.</li>
+          </ul>
+          <p>
+            When codes, postcodes or IDs must stay exactly as written, read the file as text. In SheetJS that is the
+            <code>raw: true</code> option of <code>XLSX.read</code>, shown below. With it, every value in the example stays a
+            string, including <code>"02134"</code>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>JavaScript with SheetJS</h2>
+          <p>The same two calls work in Node.js and in the browser:</p>
+          <pre><code>import * as XLSX from &#x27;xlsx&#x27;;
+import { readFileSync, writeFileSync } from &#x27;node:fs&#x27;;
+
+const book = XLSX.read(readFileSync(&#x27;people.csv&#x27;), { cellDates: true });
+const rows = XLSX.utils.sheet_to_json(book.Sheets[book.SheetNames[0]], { UTC: true });
+writeFileSync(&#x27;people.json&#x27;, JSON.stringify(rows, null, 2));</code></pre>
+          <p>
+            A CSV file always has one sheet, named <code>Sheet1</code> by SheetJS. Pass <code>raw: true</code> to
+            <code>XLSX.read</code> to keep every value as text. More options, such as <code>defval</code> for empty cells, are
+            in <a href="/vue3-json-to-excel/blog/excel-to-json-javascript/">Excel to JSON in JavaScript</a>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Python, standard library only</h2>
+          <p>
+            Python's <code>csv.DictReader</code> uses the header row as keys and never guesses types, so every value is a
+            string and leading zeros survive:
+          </p>
+          <pre><code>import csv
+import json
+
+with open(&quot;people.csv&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+    rows = list(csv.DictReader(f))
+
+with open(&quot;people.json&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    json.dump(rows, f, ensure_ascii=False, indent=2)</code></pre>
+          <p>
+            Empty cells come through as empty strings. Convert the columns that should be numbers yourself, for example
+            <code>int(row["id"])</code>. <code>ensure_ascii=False</code> keeps accented letters readable instead of writing
+            them as <code>\u</code> escapes.
+          </p>
+          <p>
+            Going the other way? See <a href="/vue3-json-to-excel/blog/convert-json-to-csv/">how to convert JSON to CSV</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/convert-json-to-csv/">How to convert JSON to CSV</a></li>
+          <li><a href="/vue3-json-to-excel/blog/excel-to-json-javascript/">Convert Excel to JSON in JavaScript</a></li>
+          <li><a href="/vue3-json-to-excel/blog/what-is-a-json-file/">What is a JSON file?</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

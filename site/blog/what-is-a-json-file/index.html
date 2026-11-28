@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What Is a JSON File? Format, Syntax and Examples</title>
+    <meta name="description" content="A JSON file is plain text that stores data as objects, arrays, strings, numbers, true, false and null. The syntax rules, a real example and where JSON is used." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/what-is-a-json-file/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="What is a JSON file?" />
+    <meta property="og:description" content="A JSON file is plain text that stores data as objects, arrays, strings, numbers, true, false and null. The syntax rules, a real example and where JSON is used." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/what-is-a-json-file/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "What is a JSON file?",
+      "description": "A JSON file is plain text that stores data as objects, arrays, strings, numbers, true, false and null. The syntax rules, a real example and where JSON is used.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/what-is-a-json-file/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/what-is-a-json-file/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "what is a .json file",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What is a JSON file?",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/what-is-a-json-file/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>What is a JSON file?</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">A .json file holds data written in JSON, short for JavaScript Object Notation. It is plain text, so people can read it, and its rules are strict enough that every programming language can parse it the same way. That is why APIs, configuration files and data exports use it so often.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>The format in one example</h2>
+          <pre><code>{
+  &quot;name&quot;: &quot;vue3-json-to-excel&quot;,
+  &quot;version&quot;: &quot;1.1.1&quot;,
+  &quot;private&quot;: false,
+  &quot;keywords&quot;: [&quot;vue&quot;, &quot;excel&quot;, &quot;xlsx&quot;],
+  &quot;author&quot;: { &quot;name&quot;: &quot;Halit Sever&quot;, &quot;url&quot;: &quot;https://halit.org&quot; },
+  &quot;funding&quot;: null
+}</code></pre>
+          <p>
+            JSON is defined in <a href="https://www.rfc-editor.org/rfc/rfc8259">RFC 8259</a> and the ECMA-404 standard. A
+            JSON text is one value, and there are six kinds of value:
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Type</th><th>Written as</th><th>Example</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Object</td><td>Key and value pairs in curly braces</td><td><code>{"city": "Berlin"}</code></td></tr>
+                <tr><td>Array</td><td>An ordered list in square brackets</td><td><code>["vue", "excel"]</code></td></tr>
+                <tr><td>String</td><td>Text in double quotes</td><td><code>"Halit"</code></td></tr>
+                <tr><td>Number</td><td>Decimal, optional fraction and exponent</td><td><code>9.5</code>, <code>-3</code>, <code>1e3</code></td></tr>
+                <tr><td>Boolean</td><td>The bare words</td><td><code>true</code>, <code>false</code></td></tr>
+                <tr><td>Null</td><td>The bare word</td><td><code>null</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Objects and arrays can hold any of the six, so data can nest as deep as it needs to.</p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>The rules that trip people up</h2>
+          <ul>
+            <li><strong>Double quotes only.</strong> Keys and strings use <code>"</code>. Single quotes are a syntax error.</li>
+            <li><strong>Keys are always strings</strong>, so <code>{id: 1}</code> is not JSON, but <code>{"id": 1}</code> is.</li>
+            <li><strong>No comma after the last item</strong> in an object or array.</li>
+            <li><strong>No comments.</strong> The grammar has no comment syntax. See <a href="/vue3-json-to-excel/blog/json-comments/">comments in JSON</a> for what to do instead.</li>
+            <li><strong>No dates.</strong> There is no date type. Dates travel as strings, usually in ISO 8601 form such as <code>"2026-11-28"</code>.</li>
+            <li><strong>Numbers have no leading zeros</strong>, and <code>NaN</code> or <code>Infinity</code> are not allowed.</li>
+          </ul>
+          <p>
+            RFC 8259 also says JSON exchanged between systems must be encoded as UTF-8. Whitespace between values is ignored,
+            so a file can be pretty-printed over many lines or packed onto one.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>File extension and media type</h2>
+          <p>
+            JSON files end in <code>.json</code>, and servers send JSON with the media type <code>application/json</code>. Some
+            tools use their own names for files that are JSON underneath, and some relax the rules: VS Code's
+            <code>settings.json</code>, for example, accepts comments.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Where you will meet JSON files</h2>
+          <ul>
+            <li><strong>Web APIs.</strong> Most REST APIs send and receive JSON. In JavaScript, <code>response.json()</code> and <code>JSON.parse()</code> turn it into objects (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON">MDN reference</a>).</li>
+            <li><strong>Configuration.</strong> <code>package.json</code> in Node.js projects, <code>tsconfig.json</code>, browser extension manifests.</li>
+            <li><strong>Exports.</strong> Many apps let you download your data as JSON, from analytics tools to social networks.</li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>JSON, CSV or Excel?</h2>
+          <p>
+            JSON keeps structure and types: a nested address stays nested and <code>true</code> stays a boolean. CSV is a flat
+            table of text. An .xlsx file is a flat table with types and formatting. When someone needs to scan, sort or filter
+            JSON records, turning them into a table is usually the fastest way. The
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a> does that in the browser, and
+            <a href="/vue3-json-to-excel/blog/how-to-open-json-file/">how to open a JSON file</a> lists the other options.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file/">How to open a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/how-to-create-a-json-file/">How to create a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/json-comments/">Comments in JSON files</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

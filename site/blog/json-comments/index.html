@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Can JSON Have Comments? What Works Instead</title>
+    <meta name="description" content="Standard JSON has no comments, and parsers reject // and /* */. What the errors look like, and the options: a comment key, JSONC, JSON5 or stripping comments." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/json-comments/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Comments in JSON files" />
+    <meta property="og:description" content="Standard JSON has no comments, and parsers reject // and /* */. What the errors look like, and the options: a comment key, JSONC, JSON5 or stripping comments." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/json-comments/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Comments in JSON files",
+      "description": "Standard JSON has no comments, and parsers reject // and /* */. What the errors look like, and the options: a comment key, JSONC, JSON5 or stripping comments.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/json-comments/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/json-comments/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "commenting in json file",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Comments in JSON files",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/json-comments/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>Comments in JSON files</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">Standard JSON has no comment syntax. Neither // nor /* */ appears anywhere in the grammar of RFC 8259, so a strict parser stops at the first comment. There are still a few ways to keep notes next to your data.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>What happens when you add one</h2>
+          <p>A file like this is not valid JSON:</p>
+          <pre><code>{
+  &quot;port&quot;: 8080 // change for production
+}</code></pre>
+          <p>JavaScript's <code>JSON.parse</code> in Node.js 22 rejects it with:</p>
+          <pre><code>SyntaxError: Expected &#x27;,&#x27; or &#x27;}&#x27; after property value in JSON at position 17 (line 2 column 16)</code></pre>
+          <p>Python's <code>json.loads</code> stops at the same place:</p>
+          <pre><code>json.decoder.JSONDecodeError: Expecting &#x27;,&#x27; delimiter: line 2 column 16 (char 17)</code></pre>
+          <p>
+            The converters on this site use the browser's own <code>JSON.parse</code>, so they report the same kind of error
+            for a file with comments.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Option 1: a comment field</h2>
+          <p>The portable fix is to make the note part of the data:</p>
+          <pre><code>{
+  &quot;_comment&quot;: &quot;Change port for production&quot;,
+  &quot;port&quot;: 8080
+}</code></pre>
+          <p>
+            Every JSON parser accepts this. The cost is that the program reading the file sees <code>_comment</code> as a real
+            key, so it has to ignore it, and a schema that forbids unknown keys will reject it. If you convert the file to a
+            spreadsheet, the note becomes a column.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Option 2: JSON with comments (JSONC)</h2>
+          <p>
+            Some tools read their own config files with a parser that allows comments. VS Code calls this mode JSON with
+            Comments and uses it for <code>settings.json</code>; the TypeScript compiler accepts comments in
+            <code>tsconfig.json</code>. That works for those files only. The same file passed to <code>JSON.parse</code> or
+            another program still fails, so do not rely on it for data that other systems read.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Option 3: JSON5 or YAML for hand-written config</h2>
+          <p>
+            <a href="https://json5.org">JSON5</a> is a separate format that extends JSON with comments, single quotes and
+            trailing commas. It needs its own parser library. YAML also allows comments with <code>#</code>. Both suit files
+            that people edit by hand. For data that goes between programs, plain JSON remains the safe choice.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Option 4: strip comments before parsing</h2>
+          <p>
+            If you control the reader, remove comments first and parse the rest as JSON. Use a tested library for this rather
+            than a regular expression: a naive pattern also deletes <code>//</code> inside strings, such as the one in
+            <code>"https://halit.org"</code>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Check a file before you use it</h2>
+          <p>
+            Paste it into the <a href="/vue3-json-to-excel/">JSON to Excel converter</a>. If it parses, you see a table. If a comment or another
+            syntax error is left, you see the parser's message. The rest of the syntax rules are in
+            <a href="/vue3-json-to-excel/blog/what-is-a-json-file/">what is a JSON file</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/what-is-a-json-file/">What is a JSON file?</a></li>
+          <li><a href="/vue3-json-to-excel/blog/how-to-create-a-json-file/">How to create a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/read-json-file-python/">How to read a JSON file in Python</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
