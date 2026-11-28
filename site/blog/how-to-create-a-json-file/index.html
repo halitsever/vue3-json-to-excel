@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How to Create a JSON File in an Editor or in Code</title>
+    <meta name="description" content="Create a JSON file in Notepad, TextEdit or VS Code, export one from a spreadsheet, or write it from JavaScript or Python, then check that it is valid JSON." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/how-to-create-a-json-file/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to create a JSON file" />
+    <meta property="og:description" content="Create a JSON file in Notepad, TextEdit or VS Code, export one from a spreadsheet, or write it from JavaScript or Python, then check that it is valid JSON." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/how-to-create-a-json-file/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to create a JSON file",
+      "description": "Create a JSON file in Notepad, TextEdit or VS Code, export one from a spreadsheet, or write it from JavaScript or Python, then check that it is valid JSON.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-create-a-json-file/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-create-a-json-file/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "how to create a json file",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to create a JSON file",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/how-to-create-a-json-file/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to create a JSON file</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">A JSON file is a plain text file with a .json extension and JSON inside. You can type one by hand in any text editor, export one from a spreadsheet, or have a program write it. The only real requirement is that the text follows JSON's rules.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>In a text editor</h2>
+          <p>Start with something small and valid:</p>
+          <pre><code>[
+  { &quot;name&quot;: &quot;Ada&quot;, &quot;city&quot;: &quot;London&quot;, &quot;active&quot;: true },
+  { &quot;name&quot;: &quot;Grace&quot;, &quot;city&quot;: &quot;New York&quot;, &quot;active&quot;: false }
+]</code></pre>
+          <h3>Windows: Notepad</h3>
+          <ol>
+            <li>Open Notepad, paste or type the JSON.</li>
+            <li>Choose <strong>File › Save as</strong>, set <strong>Save as type</strong> to <strong>All files</strong> and type a name ending in <code>.json</code>, such as <code>people.json</code>.</li>
+            <li>Keep the encoding on <strong>UTF-8</strong> and click <strong>Save</strong>.</li>
+          </ol>
+          <h3>Mac: TextEdit</h3>
+          <ol>
+            <li>Open TextEdit and choose <strong>Format › Make Plain Text</strong>, so the file has no rich text formatting.</li>
+            <li>Turn off smart quotes in <strong>Edit › Substitutions</strong>. Curly quotes are not valid JSON.</li>
+            <li>Save with a name ending in <code>.json</code>. If TextEdit asks, choose <strong>Use .json</strong>.</li>
+          </ol>
+          <h3>Any system: a code editor</h3>
+          <p>
+            In Visual Studio Code, create a new file, save it as <code>something.json</code> and VS Code switches to JSON mode:
+            it colours the syntax, underlines errors as you type and formats the file with <strong>Format Document</strong>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>From a spreadsheet</h2>
+          <p>
+            If your data is already in Excel or Google Sheets, there is no need to type it. Save or download it as .xlsx or
+            .csv and open it in the <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a>. The first row becomes the keys,
+            every other row becomes an object, and you download the result as a .json file. The file never leaves your browser.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>From code</h2>
+          <p>
+            Writing JSON from a program is safer than building the text by hand, because the serializer handles quotes,
+            escapes and commas.
+          </p>
+          <h3>JavaScript (Node.js)</h3>
+          <pre><code>import { writeFileSync } from &#x27;node:fs&#x27;;
+
+const people = [{ name: &#x27;Ada&#x27;, city: &#x27;London&#x27;, active: true }];
+writeFileSync(&#x27;people.json&#x27;, JSON.stringify(people, null, 2) + &#x27;\n&#x27;);</code></pre>
+          <p>
+            The third argument of <code>JSON.stringify</code> sets the indent. Values that JSON cannot hold are dropped from
+            objects: <code>undefined</code> and functions disappear, and a <code>Date</code> becomes an ISO string.
+          </p>
+          <h3>Python</h3>
+          <pre><code>import json
+
+people = [{&quot;name&quot;: &quot;Ada&quot;, &quot;city&quot;: &quot;London&quot;, &quot;active&quot;: True}]
+with open(&quot;people.json&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    json.dump(people, f, ensure_ascii=False, indent=2)</code></pre>
+          <p>
+            Python writes <code>True</code> as <code>true</code> and <code>None</code> as <code>null</code>.
+            <code>ensure_ascii=False</code> keeps letters such as <code>ü</code> as they are instead of <code>\u00fc</code>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Check that it is valid</h2>
+          <p>
+            A missing quote or an extra comma makes the whole file unreadable for most programs. Paste the text into the
+            <a href="/vue3-json-to-excel/">JSON to Excel converter</a>: valid JSON shows up as a table, and invalid JSON shows the parser's error
+            message with the position. In a terminal, <code>python3 -m json.tool people.json</code> prints the file formatted, or
+            the error if there is one.
+          </p>
+          <p>
+            Need test data rather than your own? Download one of the <a href="/vue3-json-to-excel/blog/sample-json-files/">sample JSON
+            files</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/sample-json-files/">Sample JSON files to download and test</a></li>
+          <li><a href="/vue3-json-to-excel/blog/what-is-a-json-file/">What is a JSON file?</a></li>
+          <li><a href="/vue3-json-to-excel/blog/read-json-file-python/">How to read a JSON file in Python</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

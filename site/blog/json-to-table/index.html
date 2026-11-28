@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JSON to Table: See JSON as Rows and Columns</title>
+    <meta name="description" content="Turn JSON into a table online, in Excel or with a few lines of JavaScript. How objects become rows, keys become columns and nested data gets its own columns." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/json-to-table/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="Turn JSON into a table you can read" />
+    <meta property="og:description" content="Turn JSON into a table online, in Excel or with a few lines of JavaScript. How objects become rows, keys become columns and nested data gets its own columns." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/json-to-table/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Turn JSON into a table you can read",
+      "description": "Turn JSON into a table online, in Excel or with a few lines of JavaScript. How objects become rows, keys become columns and nested data gets its own columns.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-table/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-table/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "json to table",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Turn JSON into a table you can read",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/json-to-table/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>Turn JSON into a table you can read</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">A JSON array of records is already a table in disguise: every object is a row and every key is a column. The work is in deciding what happens to keys that only some records have, and to values that are objects or lists themselves.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>How JSON maps to a table</h2>
+          <p>Take two records from an orders API:</p>
+          <pre><code>[
+  { &quot;id&quot;: 1001, &quot;customer&quot;: &quot;Acme&quot;, &quot;paid&quot;: true, &quot;shipping&quot;: { &quot;city&quot;: &quot;Berlin&quot; }, &quot;items&quot;: [&quot;keyboard&quot;, &quot;mouse&quot;] },
+  { &quot;id&quot;: 1002, &quot;customer&quot;: &quot;Globex&quot;, &quot;paid&quot;: false, &quot;shipping&quot;: { &quot;city&quot;: &quot;Lyon&quot; } }
+]</code></pre>
+          <p>As a table, it reads like this:</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>id</th><th>customer</th><th>paid</th><th>shipping.city</th><th>items</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1001</td><td>Acme</td><td>TRUE</td><td>Berlin</td><td>["keyboard","mouse"]</td></tr>
+                <tr><td>1002</td><td>Globex</td><td>FALSE</td><td>Lyon</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li><strong>Each object is a row.</strong> A single object, not inside an array, gives a table with one row.</li>
+            <li><strong>Columns are the union of all keys</strong>, in the order they first appear. A key that a record does not have leaves an empty cell.</li>
+            <li><strong>Nested objects become dotted columns</strong> such as <code>shipping.city</code>, so nothing is hidden inside a cell.</li>
+            <li><strong>Arrays stay in one cell</strong> as JSON text. Spreading a list over new rows would repeat every other value, which is rarely what you want in a first look.</li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>Online: paste it into the converter</h2>
+          <p>
+            The <a href="/vue3-json-to-excel/">JSON to Excel converter</a> on this site shows a table preview as soon as you paste JSON or
+            open a .json file. It follows exactly the rules above, because the preview and the .xlsx download use the same
+            <code>toRows()</code> function from the vue3-json-to-excel package.
+          </p>
+          <ol>
+            <li>Paste the JSON into the box, or upload the file.</li>
+            <li>Read the row and column count above the table. The preview shows the first 50 rows.</li>
+            <li>If you need all of it, or want to sort and filter, click <strong>Download .xlsx</strong> and open the file in Excel, Google Sheets or LibreOffice.</li>
+          </ol>
+          <p>
+            Everything runs in the browser, so the JSON is not uploaded anywhere. If the text is not valid JSON, the page shows
+            the parser's error message instead of a table.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>In Excel: Power Query</h2>
+          <p>
+            Excel for Microsoft 365 can load JSON into a table itself, under <strong>Data › Get Data › From File › From
+            JSON</strong>. You expand records into columns step by step in the Power Query Editor, which gives you control over
+            each nested field. The full steps are in <a href="/vue3-json-to-excel/blog/how-to-open-json-file-in-excel/">how to open a JSON
+            file in Excel</a>.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>In your own page: JSON to an HTML table</h2>
+          <p>
+            For a flat array of objects, building an HTML table in the browser takes a few lines. This version collects the
+            columns from every record and uses <code>textContent</code>, so values from the JSON are never parsed as HTML:
+          </p>
+          <pre><code>function jsonToTable(rows) {
+  const columns = [...new Set(rows.flatMap((row) =&gt; Object.keys(row)))];
+  const table = document.createElement(&#x27;table&#x27;);
+  const head = table.createTHead().insertRow();
+  for (const column of columns) {
+    head.appendChild(document.createElement(&#x27;th&#x27;)).textContent = column;
+  }
+  const body = table.createTBody();
+  for (const row of rows) {
+    const tr = body.insertRow();
+    for (const column of columns) {
+      const value = row[column];
+      tr.insertCell().textContent =
+        value === undefined || value === null ? &#x27;&#x27; : typeof value === &#x27;object&#x27; ? JSON.stringify(value) : String(value);
+    }
+  }
+  return table;
+}
+
+const rows = await (await fetch(&#x27;/orders.json&#x27;)).json();
+document.body.append(jsonToTable(rows));</code></pre>
+          <p>
+            Objects and arrays are written as JSON text here. To get dotted columns instead, flatten each record first. The
+            package exports the function it uses for that:
+          </p>
+          <pre><code>import { toRows } from &#x27;vue3-json-to-excel&#x27;;
+
+document.body.append(jsonToTable(toRows(rows)));</code></pre>
+          <p>
+            How <code>toRows()</code> handles deeper nesting, empty objects and arrays of objects is covered in
+            <a href="/vue3-json-to-excel/blog/nested-json-to-excel/">nested JSON to Excel</a>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/how-to-open-json-file/">How to open a JSON file</a></li>
+          <li><a href="/vue3-json-to-excel/blog/nested-json-to-excel/">Nested JSON to Excel: how objects and arrays become columns</a></li>
+          <li><a href="/vue3-json-to-excel/blog/what-is-a-json-file/">What is a JSON file?</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

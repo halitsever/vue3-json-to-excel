@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Read a JSON File in Python With json.load</title>
+    <meta name="description" content="Read a JSON file in Python with json.load, parse a string with json.loads, see how JSON types map to Python and handle JSONDecodeError and encoding problems." />
+    <link rel="canonical" href="https://projects.halit.org/vue3-json-to-excel/blog/read-json-file-python/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#42b883" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="vue3-json-to-excel" />
+    <meta property="og:title" content="How to read a JSON file in Python" />
+    <meta property="og:description" content="Read a JSON file in Python with json.load, parse a string with json.loads, see how JSON types map to Python and handle JSONDecodeError and encoding problems." />
+    <meta property="og:url" content="https://projects.halit.org/vue3-json-to-excel/blog/read-json-file-python/" />
+    <meta property="og:image" content="https://projects.halit.org/vue3-json-to-excel/og.png" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="vue3-json-to-excel: a Vue 3 component that downloads JSON as an Excel file" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How to read a JSON file in Python",
+      "description": "Read a JSON file in Python with json.load, parse a string with json.loads, see how JSON types map to Python and handle JSONDecodeError and encoding problems.",
+      "url": "https://projects.halit.org/vue3-json-to-excel/blog/read-json-file-python/",
+      "mainEntityOfPage": "https://projects.halit.org/vue3-json-to-excel/blog/read-json-file-python/",
+      "datePublished": "2026-11-28",
+      "dateModified": "2026-11-28",
+      "inLanguage": "en",
+      "image": "https://projects.halit.org/vue3-json-to-excel/og.png",
+      "keywords": "read json file python",
+      "author": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "Halit Sever",
+        "jobTitle": "Developer",
+        "url": "https://halit.org"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "JSON to Excel",
+          "item": "https://projects.halit.org/vue3-json-to-excel/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "How to read a JSON file in Python",
+          "item": "https://projects.halit.org/vue3-json-to-excel/blog/read-json-file-python/"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "dd7e54d3f48841c187d72d9dbb92a6b6"}'></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="/vue3-json-to-excel/">
+          <img src="/favicon.svg" width="24" height="24" alt="" />
+          vue3-json-to-excel
+        </a>
+        <nav aria-label="Sections">
+          <a href="/vue3-json-to-excel/">JSON to Excel</a>
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a>
+          <a href="/vue3-json-to-excel/blog/">Blog</a>
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero wrap">
+          <p class="crumbs"><a href="/vue3-json-to-excel/">Home</a> › <a href="/vue3-json-to-excel/blog/">Blog</a></p>
+          <h1>How to read a JSON file in Python</h1>
+          <p class="post-meta">By <a href="https://halit.org">Halit Sever</a> · <time datetime="2026-11-28">28 November 2026</time></p>
+          <p class="lead">Python's standard library reads JSON with the json module, so there is nothing to install. Open the file, call json.load, and you get ordinary lists and dictionaries back.</p>
+        </header>
+
+        <section class="wrap prose">
+          <h2>The short version</h2>
+          <p>Given a file <code>people.json</code>:</p>
+          <pre><code>[
+  { &quot;name&quot;: &quot;Ada Lovelace&quot;, &quot;born&quot;: 1815, &quot;active&quot;: true, &quot;tags&quot;: [&quot;math&quot;, &quot;poetry&quot;], &quot;office&quot;: null },
+  { &quot;name&quot;: &quot;Grace Hopper&quot;, &quot;born&quot;: 1906, &quot;active&quot;: false, &quot;tags&quot;: [&quot;navy&quot;], &quot;office&quot;: { &quot;city&quot;: &quot;Arlington&quot; } }
+]</code></pre>
+          <p>read it like this:</p>
+          <pre><code>import json
+
+with open(&quot;people.json&quot;, encoding=&quot;utf-8&quot;) as f:
+    people = json.load(f)
+
+for person in people:
+    print(person[&quot;name&quot;], person[&quot;born&quot;], person[&quot;active&quot;], person[&quot;office&quot;])</code></pre>
+          <p>Output, from Python 3.14:</p>
+          <pre><code>Ada Lovelace 1815 True None
+Grace Hopper 1906 False {&#x27;city&#x27;: &#x27;Arlington&#x27;}</code></pre>
+          <p>
+            Pass <code>encoding="utf-8"</code> explicitly. JSON files are UTF-8, but <code>open()</code> otherwise uses the
+            system's default encoding, which on some Windows setups is not UTF-8 and turns accented letters into errors or
+            garbage.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>How JSON types become Python types</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>JSON</th><th>Python</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>object</td><td><code>dict</code></td></tr>
+                <tr><td>array</td><td><code>list</code></td></tr>
+                <tr><td>string</td><td><code>str</code></td></tr>
+                <tr><td>number without a fraction</td><td><code>int</code></td></tr>
+                <tr><td>number with a fraction or exponent</td><td><code>float</code></td></tr>
+                <tr><td><code>true</code> / <code>false</code></td><td><code>True</code> / <code>False</code></td></tr>
+                <tr><td><code>null</code></td><td><code>None</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            This is the conversion table from the <a href="https://docs.python.org/3/library/json.html">json module
+            documentation</a>. Dates stay strings, because JSON has no date type. Parse them with
+            <code>datetime.date.fromisoformat()</code> when you need real dates.
+          </p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>json.load or json.loads?</h2>
+          <ul>
+            <li><code>json.load(f)</code> reads from an open file.</li>
+            <li><code>json.loads(text)</code> parses a string, for example the body of an HTTP response.</li>
+          </ul>
+          <pre><code>data = json.loads(&#x27;{&quot;price&quot;: 9.5, &quot;n&quot;: 3}&#x27;)
+print(data)  # {&#x27;price&#x27;: 9.5, &#x27;n&#x27;: 3}</code></pre>
+          <p>The <code>s</code> stands for string. <code>json.dump</code> and <code>json.dumps</code> are the writing counterparts.</p>
+        </section>
+
+        <section class="wrap prose">
+          <h2>When the file will not load</h2>
+          <p>Invalid JSON raises <code>json.JSONDecodeError</code>, which says what was expected and where:</p>
+          <pre><code>try:
+    json.loads(&quot;{&#x27;a&#x27;: 1}&quot;)
+except json.JSONDecodeError as e:
+    print(e)  # Expecting property name enclosed in double quotes: line 1 column 2 (char 1)</code></pre>
+          <p>The usual causes:</p>
+          <ul>
+            <li><strong>Single quotes</strong>, often from text that was printed from a Python dict instead of written with <code>json.dump</code>.</li>
+            <li><strong>A trailing comma</strong> after the last item.</li>
+            <li><strong>Comments</strong>, which JSON does not allow. See <a href="/vue3-json-to-excel/blog/json-comments/">comments in JSON</a>.</li>
+            <li><strong>One JSON object per line</strong> (JSON Lines). Read those line by line with <code>json.loads(line)</code>.</li>
+          </ul>
+        </section>
+
+        <section class="wrap prose">
+          <h2>From JSON to a spreadsheet</h2>
+          <p>
+            With pandas installed, <a href="https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html"><code>pandas.json_normalize</code></a>
+            flattens nested records into columns, and <code>DataFrame.to_excel</code> writes an .xlsx file (it needs the
+            openpyxl package). For a one-off file, the <a href="/vue3-json-to-excel/">JSON to Excel converter</a> does the same in the browser
+            with no code: nested objects get dotted columns such as <code>office.city</code>.
+          </p>
+        </section>
+      </article>
+      <section class="wrap prose related">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a href="/vue3-json-to-excel/blog/csv-to-json/">How to convert CSV to JSON</a></li>
+          <li><a href="/vue3-json-to-excel/blog/what-is-a-json-file/">What is a JSON file?</a></li>
+          <li><a href="/vue3-json-to-excel/blog/how-to-create-a-json-file/">How to create a JSON file</a></li>
+        </ul>
+        <p>
+          Tools: <a href="/vue3-json-to-excel/">JSON to Excel converter</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON converter</a> ·
+          <a href="/vue3-json-to-excel/blog/">all guides</a>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p>
+          <a href="/vue3-json-to-excel/">JSON to Excel</a> ·
+          <a href="/vue3-json-to-excel/excel-to-json/">Excel to JSON</a> ·
+          <a href="/vue3-json-to-excel/blog/">Blog</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel">GitHub</a> ·
+          <a href="https://www.npmjs.com/package/vue3-json-to-excel">npm</a> ·
+          <a href="https://github.com/halitsever/vue3-json-to-excel/blob/main/LICENSE">MIT License</a>
+        </p>
+        <p>Made by <a href="https://halit.org">Halit Sever</a>. Spreadsheets are written by <a href="https://sheetjs.com">SheetJS</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
