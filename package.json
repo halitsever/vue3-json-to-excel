@@ -1,6 +1,6 @@
 {
   "name": "vue3-json-to-excel",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Vue 3 component that exports JSON to an Excel (.xlsx) file in the browser, built on SheetJS. Try it in the online JSON to Excel converter.",
   "main": "dist/vue3-json-to-excel.cjs",
   "module": "dist/vue3-json-to-excel.mjs",
